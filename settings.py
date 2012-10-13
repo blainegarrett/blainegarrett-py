@@ -1,14 +1,32 @@
+'''
+Application Settings and default overrides
+'''
 import os.path
-ROOT_URLCONF = 'urls'
-DEBUG=True
-APPEND_SLASH = True
-PROJECT_DIR = os.path.dirname(__file__) # this is not Django setting.
-TEMPLATE_DIRS = ( os.path.join(PROJECT_DIR, "templates"), os.path.join(PROJECT_DIR, "merkabah/templates"),)
 
+try:
+    from merkabah import settings as merkabah_settings
+except ImportError:
+    merkabah_settings = None
+
+if merkabah_settings:
+    for setting in dir(merkabah_settings):
+        globals()[setting.upper()] = getattr(merkabah_settings, setting)
+
+PROJECT_DIR = os.path.dirname(__file__) # this is not Django setting.
+DEBUG=False
+TEMPLATE_DIRS += ( os.path.join(PROJECT_DIR, "templates"),)
 INSTALLED_APPS = ('merkabah')
 
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.load_template_source',
-    'django.template.loaders.app_directories.load_template_source',
-    'merkabah.template.loaders.load_template_source',
-)
+###############################
+# Installation Properties
+###############################
+MERKABAH_ADMIN_URL = 'madmin/'
+
+try:
+    import settingslocal
+except ImportError:
+    settingslocal = None
+
+if settingslocal:
+    for setting in dir(settingslocal):
+        globals()[setting.upper()] = getattr(settingslocal, setting)
