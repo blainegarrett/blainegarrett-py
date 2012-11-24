@@ -18,9 +18,20 @@ TEMPLATE_DIRS += ( os.path.join(PROJECT_DIR, "templates"),)
 INSTALLED_APPS = ('merkabah')
 
 ###############################
+# Installed Plugins
+###############################
+INSTALLED_PLUGINS = ('blogs')
+
+
+
+###############################
 # Installation Properties
 ###############################
 MERKABAH_ADMIN_URL = 'madmin/'
+
+
+
+
 
 try:
     import settingslocal

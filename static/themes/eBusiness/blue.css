@@ -1,0 +1,127 @@
+/* Blaine Garrett Theme - adapted for bootstrap from eBusiness theme */
+
+/* body { padding-bottom: 40px; background-color: #3E3E3E; padding-top : 90px; } */
+
+.navbar .brand { padding : 0px 20px 10px; }
+.navbar .navbar-inner {
+/*
+	width: 100%;
+	float: left;
+	height: 72px;
+	background-color: black;
+	border-bottom: 1px solid #5E5E5E;
+	margin-bottom: 15px;
+	background-image : none;
+	*/
+	background-color: black;
+}
+.navbar ul.nav {
+	list-style-type: none;
+	list-style-image: none;
+	padding: 0px 0px 0px 0px;
+	margin: 20px 0px 0px 15px;
+	float: left;
+}
+.navbar ul.nav li {
+	float: left;
+	display: block;
+	height: 42px;
+	padding: 0px;
+	margin: 0px;
+}
+
+.navbar ul.nav li a:link, .navbar ul.nav li a:visited, .navbar ul.nav li a:active {
+    float: left;
+    color: white;
+    display: block;
+    font-weight: bold;
+    height: 37px;
+    font-size: 13px;
+    padding: 5px 16px 0px 10px;
+    margin: 0px;
+}	
+
+.navbar ul.nav li:hover {
+	background-image: url(/static/themes/eBusiness/images/pages-hover-left.gif);
+	background-position: left;	
+}
+
+
+.navbar ul.nav li a:hover {
+	background-image: url(/static/themes/eBusiness/images/pages-hover-right.gif);
+	background-repeat: no-repeat;
+	background-position: right;
+	color: black;
+}	
+
+footer {
+	clear: both;
+	padding-bottom: 620px;
+	margin-top: 20px;
+	float: left;
+	font-size: 11px;
+	width: 950px;
+	color: #EDEDED;
+
+}
+
+
+
+
+/* Homepage Slider */
+	.sidebar-nav { padding: 9px 0; }
+    	.slider-nav .nav-tabs {
+    		margin-bottom : 0;
+    		border-bottom : 0px;
+    	}
+        	.slider-nav .nav-tabs > li > a  {
+        		background: #63d5f0;
+        		background: -moz-linear-gradient(top, #63d5f0, #4eabc8);
+        		background: -webkit-gradient(linear, left top, left bottom, from(#63d5f0), to(#4eabc8));
+        		background: linear-gradient(top, #63d5f0, #4eabc8);
+        		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#63d5f0, endColorstr=#4eabc8);
+
+        		font-weight : bold;
+        		min-width : 100px;
+        		color : #fff;
+        	}
+        	.slider-nav .nav-tabs > .active > a, .slider-nav .nav-tabs > .active > a:hover {
+        		border : 0px;
+        		border-bottom : 1px solid transparent;	
+        	}
+        	.slider-nav .tab-content  {
+        		border : 10px solid #222222;
+        		background-color : #000;
+        	}
+        	.slider-nav .tab-content .tab-pane {
+        		height: 267px;
+        		float: left;
+        		/*
+        		background-image: url(/static/themes/eBusiness/images/slider-bg.jpeg);
+        		background-repeat: no-repeat;
+        		*/
+        		padding: 0px;
+        		width : 100%;
+        	}
+
+            .slider-nav { color : #eee; }
+            .slider-nav hr { color : #666; }
+            .slider-nav h2 { font-size: 36px; color: #fff; margin-bottom: 13px;  line-height: 40px; }
+            .slider-nav .slider-left-2 {
+            	padding : 20px;
+            }
+
+            		.prev { height: 36px; width: 36px; background-image: url(images/smooth-blue/slider-arrow-left.png); position: absolute; cursor: pointer; top: 110px; left: -16px; z-index: 3; }
+            		.next { height: 36px; width: 36px; background-image: url(images/smooth-blue/slider-arrow-right.png); position: absolute; cursor: pointer; top: 110px; left: 933px; z-index: 3; }
+            		.slider-link-1 { width: 152px; height: 43px; background-image: url(images/smooth-blue/slider-button-1.gif); position: absolute; z-index: 1; top: -35px; color: #fff !important; font-weight: bold; padding: 10px 0px 0px 16px; }
+            		.slider-link-2 { width: 152px; height: 43px; background-image: url(images/smooth-blue/slider-button-1.gif); position: absolute; z-index: 1; top: -35px; left: 170px; color: #fff !important; font-weight: bold; padding: 10px 0px 0px 16px; }
+            		.slider-link-3 { width: 152px; height: 43px; background-image: url(images/smooth-blue/slider-button-1.gif); position: absolute; z-index: 1; left: 340px; top: -35px; color: #fff !important; font-weight: bold; padding: 10px 0px 0px 16px; }
+            		.slider-line { height : 2px; width: 100%; margin-bottom: 10px; }
+            /*		.slider-left { margin: 20px 25px 0px 25px; float: left; width: 450px; height: 209px; overflow: hidden; }
+            		.slider-left-2 { float: left; width: 472px; height: 292px; }
+            		.slider-right { float: right; margin-right: 35px; margin-top: 26px; }
+            */
+            		/*.slider-right embed, .slider-right object { width: 334px !important; height: 192px !important; border: 8px solid #2c2c2c; } */
+            		.slider-right img { margin-left : 30px; }
+            		.readmore { float: right; border: none; margin: 4px 0px 0px 0px; position: relative; z-index: 200; }
+            		.readmore2 { margin: 10px 0px 0px 0px; float: right; border: none; }

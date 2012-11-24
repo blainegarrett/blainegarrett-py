@@ -1,0 +1,17 @@
+@media (max-width: 768px) {
+.footer div.span-contact {
+	width: 48.6188%;
+}
+.navbar .nav > li > a {
+	padding: 6px 15px;
+}
+.navbar-inner .container-fluid {
+	padding: 5px 40px;
+}
+div.nav-collapse.navigation-top.pull-right.collapse {
+	float: none;
+}
+.padding-wrapper {
+	padding: 20px;
+}
+}
