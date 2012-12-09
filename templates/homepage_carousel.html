@@ -5,36 +5,22 @@
 		<!-- start navigation tabs -->
 		<div id="myCarousel" class="carousel slide">
 			<ul class="nav nav-tabs" id="myTab">
-			  <li class="active"><a data-toggle="tab" ng-click="showTab(0, $event)" href="#tab1" >Señor Wong Mural</a></li>
-			  <li><a href="#tab2" data-toggle="tab" ng-click="showTab(1, $event)">Profile</a></li>
-			  <li><a href="#tab3" data-toggle="tab" ng-click="showTab(2, $event)">Messages</a></li>
-			
-			 <!-- <li><a href="#tab4" data-toggle="tab" ng-click="showTab(3, $event)">Settings</a></li> -->
+				{% for panel in panels %}
+			  		<li><a data-toggle="tab" ng-click="showTab({{forloop.counter0 }}, $event)" href="#tab{{forloop.counter0 }}">{{panel.title}}</a></li>
+				{% endfor %}			
 			</ul>
 		<!-- end navigation tabs -->
 
          <div class="carousel-inner" style="border : 10px solid #222;">
-           <div class="item">
-             <img src="http://digibodies.com/wp-content/blogs.dir/6/files/2012/06/mural_bg_slider_icon.jpg" style="height:500px; width:870px">
-             <div class="carousel-caption">
-               <h4>First Thumbnail label</h4>
-               <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-             </div>
-           </div>
-           <div class="item">
-             <img src="http://digibodies.com/wp-content/blogs.dir/6/files/2012/06/mural_bg_slider_icon.jpg" style="height:500px; width:870px">
-             <div class="carousel-caption">
-               <h4>Second Thumbnail label</h4>
-               <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-             </div>
-           </div>
-           <div class="item active">
-             <img src="http://digibodies.com/wp-content/blogs.dir/6/files/2012/06/mural_bg_slider_icon.jpg" style="height:500px; width:870px">
-             <div class="carousel-caption">
-               <h4>Third Thumbnail label</h4>
-               <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-             </div>
-           </div>
+				{% for panel in panels %}
+	           <div class="item{% if forloop.first %} active{% endif %}">
+	             <img src="{{ panel.image_path}}" style="height:100%; width:100%" />
+	             <div class="carousel-caption">
+	               <h4>{{ panel.title }}</h4>
+	               <p>{{ panel.description }}</p>
+	             </div>
+	           </div>
+				{% endfor %}
          </div>
          <a class="left carousel-control" ng-click="showTab('next', $event)" href="#myCarousel" data-slide="prev">‹</a>
          <a class="right carousel-control" ng-click="showTab('prev', $event)" href="#myCarousel" data-slide="next">›</a>

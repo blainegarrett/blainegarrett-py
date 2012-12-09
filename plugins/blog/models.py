@@ -28,6 +28,13 @@ class Page(ndb.Model):
     title = ndb.StringProperty()
 
 
+class BlogCategory(ndb.Model):
+    nice_name = 'Category'
+
+    slug = ndb.StringProperty()
+    name = ndb.StringProperty()
+
+
 class BlogPost(ndb.Model):
     nice_name = 'Posts'
     
@@ -36,19 +43,14 @@ class BlogPost(ndb.Model):
     body = ndb.TextProperty()
     created_date = ndb.DateTimeProperty(auto_now_add=True)
     modified_date = ndb.DateTimeProperty(auto_now=True)
-    
+    categories = ndb.KeyProperty(repeated=True, kind=BlogCategory)
+    primary_image_blob = ndb.BlobKeyProperty()
     #published_data = ndb.DateTimeProperty()
     
     def get_permalink(self):
         dt = self.created_date
         return '/%s/%s/%s/%s' % (dt.year, dt.month, dt.day, self.slug)
-        
-class BlogCategory(ndb.Model):
-    nice_name = 'Category'
-        
-    slug = ndb.StringProperty()
-    name = ndb.StringProperty() 
-    
+            
     
 kind_name_map = {
     'post' : BlogPost,

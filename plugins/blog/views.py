@@ -4,13 +4,15 @@ from merkabah.core import controllers as merkabah_controllers
 from google.appengine.api import users
 from google.appengine.ext import ndb
 from django.core import urlresolvers
+import logging
 
 from merkabah.admin.views import MerkabahAdminBaseController
-
+from merkabah.core import files as merkabah_files
 from plugins import blog as blog_base
 from plugins.blog import forms as blog_forms
 from plugins.blog import models as blog_models
-from plugins.blog import datatables as blog_datatables    
+from plugins.blog import datatables as blog_datatables
+ 
     
 class BlogIndexCtrl(MerkabahAdminBaseController):
     view_name = 'merkabah_admin_blog_index'
@@ -48,17 +50,32 @@ class BlogPostCreateCtrl(BlogPostBaseCtrl):
     view_name = 'merkabah_admin_blog_post_create'
     template = 'merkabah/admin/plugin/entity/form.html'
     
-    def process_request(self, request, context, *args, **kwargs):
+    def process_request(self, request, context, *args, **kwargs):    
         super(BlogPostCreateCtrl, self).process_request(request, context, *args, **kwargs)
         
         context['form_type'] = 'Add'
+        context['form_action_url'] = merkabah_files.create_upload_url('/madmin/blog/post/add/?fishdicks=true')
         
         if request.POST:
             context['form'] = blog_forms.BlogPostForm(request.POST)
-            context['form'].is_valid()
-            
             if context['form'].is_valid():
-                post = blog_models.BlogPost(title=context['form'].cleaned_data['title'], body=context['form'].cleaned_data['body'], slug=context['form'].cleaned_data['slug'])                
+                
+                upload_files = merkabah_files.get_uploads(request, 'image_file', True)
+                uploaded_file = upload_files[0]
+                uploaded_key = uploaded_file.key()
+                                                
+                # cleanup categories
+                category_keys = []
+                for keystr in context['form'].cleaned_data['categories']:
+                    category_keys.append(ndb.Key(urlsafe=keystr))
+                    
+                post = blog_models.BlogPost(
+                    title=context['form'].cleaned_data['title'], 
+                    body=context['form'].cleaned_data['body'], 
+                    slug=context['form'].cleaned_data['slug'],
+                    categories=category_keys,
+                    primary_image_blob = uploaded_key
+                )                
                 post.put()
                                 
                 return redirect(urlresolvers.reverse('merkabah_admin_blog_post_index', args=()))
@@ -82,14 +99,26 @@ class BlogPostEditCtrl(BlogPostBaseCtrl):
         form_initial['slug'] = post.slug
         form_initial['body'] = post.body
         
+        # cleanup categories
+        form_initial['categories'] = []
+        for key in post.categories:
+            form_initial['categories'].append(key.urlsafe())
+        
         if request.POST:
             context['form'] = blog_forms.BlogPostForm(data=request.POST, initial=form_initial)
             context['form'].is_valid()
         
             if context['form'].is_valid():
+                
+                # cleanup categories
+                category_keys = []
+                for keystr in context['form'].cleaned_data['categories']:
+                    category_keys.append(ndb.Key(urlsafe=keystr))
+                    
                 post.title=context['form'].cleaned_data['title']
                 post.body=context['form'].cleaned_data['body']
                 post.slug=context['form'].cleaned_data['slug']
+                post.categories=category_keys
                 post.put()
                 
                 return redirect(urlresolvers.reverse('merkabah_admin_blog_post_index', args=()))

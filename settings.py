@@ -22,17 +22,15 @@ INSTALLED_APPS = ('merkabah')
 ###############################
 INSTALLED_PLUGINS = ('blogs')
 
-
-
 ###############################
 # Installation Properties
 ###############################
 MERKABAH_ADMIN_URL = 'madmin/'
 
-
-
-
-
+###############################
+# Local Development Overrides
+###############################
+# Import local settings
 try:
     import settingslocal
 except ImportError:
