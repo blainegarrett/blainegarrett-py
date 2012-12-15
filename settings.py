@@ -15,7 +15,18 @@ if merkabah_settings:
 PROJECT_DIR = os.path.dirname(__file__) # this is not Django setting.
 DEBUG=False
 TEMPLATE_DIRS += ( os.path.join(PROJECT_DIR, "templates"),)
-INSTALLED_APPS = ('merkabah')
+INSTALLED_APPS = ('merkabah', 'home')
+
+
+
+MIDDLEWARE_CLASSES = (
+    #'django.middleware.common.CommonMiddleware',
+    #'django.contrib.sessions.middleware.SessionMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.contrib.auth.middleware.AuthenticationMiddleware',
+    #'django.contrib.messages.middleware.MessageMiddleware',
+)
+
 
 ###############################
 # Installed Plugins
