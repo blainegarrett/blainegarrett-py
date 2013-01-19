@@ -4,7 +4,7 @@ body {
 	font-family: 'PT Sans', Helvetica, Arial, sans-serif;
 	color: #333;
 	/* background: url("http://subtlepatterns.com/patterns/subtle_stripes.png") repeat;*/
-	background : url('/static/themes/corporatus/images/always_grey_@2X.png') repeat;
+	background : url('/static/themes/corporatus/images/always_grey_2X.png') repeat;
 	background-color: #3E3E3E;
 	font-size: 14px;
 }
@@ -15,6 +15,21 @@ body {
         background-color : #333;
     }
 }
+
+/* Blog Styles */
+.alignleft {
+    float: left;
+    margin-right: 20px; 
+}
+.alignright {
+    float: right;
+    margin-left: 20px; 
+}
+
+
+
+
+
 
 .navbar .brand {
 	font-family: 'Limelight', cursive;

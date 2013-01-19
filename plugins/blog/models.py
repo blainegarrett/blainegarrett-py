@@ -5,6 +5,8 @@ class Person(db.Model):
     firstname = db.TextProperty()
     lastname = db.TextProperty()
 '''    
+import bs4
+#from bs4 import BeautifulSoup
 
 def get_kind_class(kind_key):
     if kind_key == 'post':
@@ -27,6 +29,11 @@ class Page(ndb.Model):
     slug = ndb.StringProperty()
     title = ndb.StringProperty()
 
+class BlogMedia(ndb.Model):
+    filename = ndb.StringProperty()
+    blob_key = ndb.BlobKeyProperty()    
+    content_type = ndb.StringProperty()
+    size = ndb.IntegerProperty()
 
 class BlogCategory(ndb.Model):
     nice_name = 'Category'
@@ -40,17 +47,21 @@ class BlogPost(ndb.Model):
     
     title = ndb.StringProperty()
     slug = ndb.StringProperty()
-    body = ndb.TextProperty()
+    content = ndb.TextProperty()
+    published_date = ndb.DateTimeProperty()
     created_date = ndb.DateTimeProperty(auto_now_add=True)
     modified_date = ndb.DateTimeProperty(auto_now=True)
     categories = ndb.KeyProperty(repeated=True, kind=BlogCategory)
-    primary_image_blob = ndb.BlobKeyProperty()
-    #published_data = ndb.DateTimeProperty()
+    primary_media_image = ndb.KeyProperty(kind=BlogMedia)
+    attached_media = ndb.KeyProperty(repeated=True, kind=BlogMedia)
+    is_published = ndb.BooleanProperty(default=False)
     
+    def get_primary_image_url(self):
+        return BlogMedia.get(self.primary_media_image).filename
+        
     def get_permalink(self):
         dt = self.created_date
-        return '/%s/%s/%s/%s' % (dt.year, dt.month, dt.day, self.slug)
-            
+        return '/%02d/%02d/%02d/%s' % (dt.year, dt.month, dt.day, self.slug)
     
 kind_name_map = {
     'post' : BlogPost,

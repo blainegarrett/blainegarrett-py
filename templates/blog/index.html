@@ -18,7 +18,12 @@
 					{% endfor %}
 				</div>
 				<div class="span3">
-					Side Bar
+					
+					<ul>
+						{% for post in posts2 %}
+						<li>{{post.title}}</li>
+						{% endfor %}
+					</ul>
 					
 					
 				</div>

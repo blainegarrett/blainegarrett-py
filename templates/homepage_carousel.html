@@ -1,17 +1,52 @@
+<style>
+@media (max-width: 767px) {
+  .navbar-fixed-top,
+  .navbar-fixed-bottom,
+  .navbar-static-top {
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+}
+
+@media (max-width: 768px) {
+	.navbar-inner .container-fluid {
+		padding: 0px 0px;
+	}
+}
+
+@media (max-width: 979px) {
+	.navbar .btn-navbar {
+		margin-top : 17px;
+	}
+}
+
+
+.carousel-inner {
+	border : 10px solid #222;
+}
+@media (max-width: 500px) {
+	.carousel-inner {
+		border : 0px solid #222;
+	}
+}
+
+
+
+</style>
 
 <!-- start carousel -->
 <div class="container-fluid">
 	<div class="padding-wrapper">
 		<!-- start navigation tabs -->
 		<div id="myCarousel" class="carousel slide">
-			<ul class="nav nav-tabs" id="myTab">
+			<ul class="nav nav-tabs hidden-phone hidden-tablet" id="myTab">
 				{% for panel in panels %}
 			  		<li><a data-toggle="tab" ng-click="showTab({{forloop.counter0 }}, $event)" href="#tab{{forloop.counter0 }}">{{panel.title}}</a></li>
 				{% endfor %}			
 			</ul>
 		<!-- end navigation tabs -->
 
-         <div class="carousel-inner" style="border : 10px solid #222;">
+         <div class="carousel-inner">
 				{% for panel in panels %}
 	           <div class="item{% if forloop.first %} active{% endif %}">
 	             <img src="{{ panel.image_path}}" style="height:100%; width:100%" />

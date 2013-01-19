@@ -1,3 +1,4 @@
+{% load tt_web %}
 <!-- Start Footer -->
 <footer class="footer">
 		<div class="padding-wrapper">
@@ -6,23 +7,8 @@
 					
 					
 
-					<div class="span5 hidden-phone hidden-tablet blog-list-widget" >
-						<div class="footer-heading">
-							<h3>From the Blog</h3>
-						</div>
-						
-						<div class="row-fluid">							
-							<div class="span12">
-								<ul>
-									<li><a href="http://blainegarrett.com/2011/08/02/transaction-safe-reference-properties-ancestor-queries/" title="Appengine: Transaction Safe Reference Properties with Ancestor Queries">Appengine: Transaction Safe Reference Properties with Ancestor Queries</a></li>
-									<li><a href="http://blainegarrett.com/2011/04/02/appengine-files-api-part-1-storingfetching-remote-images-in-blobstore-using-django/" title="Appengine Files Api – part 1: Storing/Fetching remote images in Blobstore using Django">Appengine Files Api – part 1: Storing/Fetching remote images in Blobstore using Django</a></li>
-									<li><a href="http://blainegarrett.com/2011/03/21/the-cost-of-internetting/" title="The Cost of Internetting">The Cost of Internetting</a></li>
-									<li><a href="http://blainegarrett.com/2011/01/03/2010-reflections-p2-3-the-snowy-epic-conclusion/" title="2010 Reflections p2.3 – The Snowy Epic Conclusion">2010 Reflections p2.3 – The Snowy Epic Conclusion</a></li>
-									<li><a href="http://blainegarrett.com/2010/12/29/2010-reflections-p2-2-people-look-at-you-wierd-when-you-are-bloody/" title="2010 Reflections p2.2 : People Look At You Weird When You Are Bloody">2010 Reflections p2.2 : People Look At You Weird When You Are Bloody</a></li>
-								</ul>
-							</div>
-						</div>
-						
+					<div class="span5 hidden-phone hidden-tablet blog-list-widget">
+						{% newest_blog_posts %}
 						
 						
 						

@@ -1,3 +1,4 @@
+{% load tt_web %}
 <style>
 	.blog_entry {
 		
@@ -28,6 +29,9 @@
 
 </style>
 
+<script>
+$('.dropdown-toggle').dropdown()
+</script>
 <div class="blog_entry">
 	<div class="row-fluid">
 		<div class="span12">
@@ -38,26 +42,29 @@
 		<div class="span12">
 			<div class="post-info-wrap"> 
 				<img src="/static/themes/corporatus/img/ribbon_wrap.gif" alt="home title" class="home-title-image" /> 
-				<span class="post-info">Posted on {{ post.created_date }} in [list categories] </span> 
+				<span class="post-info">Posted on {{ post.published_date }}</span> 
 				<img src="/static/themes/corporatus/img/ribbon_end.gif" alt="home title" class="home-title-image" />
 			</div>
 		</div>
 	</div>
 	<div class="row-fluid">				
 		<div class="span3">
-			<a class="lightview" data-lightview-group="index" data-lightview-title="Image Title" data-lightview-caption="You can give your images captions" href="images/800x600.gif">
-				<img class="thumbnail" src="/blog_image/{{ post.primary_image_blob }}/" alt="Placeholder Image" />
+			{% if post.primary_media_image %}
+			<a ng-click="setRoute('{{ post.get_permalink }}')" href="{{ post.get_permalink }}" >
+				
+			<a ng-click="setRoute('{{ post.get_permalink }}')" class="lightview" data-lightview-group="index" data-lightview-title="Image Title" data-lightview-caption="You can give your images captions" href="{{ post.get_permalink }}">
+				<img class="thumbnail" src="/blog_image/{{ post.primary_media_image.urlsafe }}/" alt="Placeholder Image" />
 			</a>
+			{% endif %}
 		</div>
 	
 		<div class="span9">
-			{{ post.primary_image_blob }}
-			<p>{{ post.body }}</p>
+			{% render_excerpt post %}
 		</div>
 	</div>
 	<div class="row-fluid readmore-container">
 		<a ng-click="setRoute('{{ post.get_permalink }}')" href="{{ post.get_permalink }}" >
-			<img src="http://blaineyo.digibodies.com/wp-content/themes/eBusiness/images/readmore-2-Smooth-Blue.gif" alt="readmore" class="readmore2" />
+			<img src="/static/themes/eBusiness/images/readmore-2-Smooth-Blue.gif" alt="readmore" class="readmore2" />
 		</a>
 	</div>
 </div>

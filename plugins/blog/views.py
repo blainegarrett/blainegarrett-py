@@ -5,15 +5,18 @@ from google.appengine.api import users
 from google.appengine.ext import ndb
 from django.core import urlresolvers
 import logging
+import datetime
+from plugins.blog import utils as blog_utils
 
 from merkabah.admin.views import MerkabahAdminBaseController
 from merkabah.core import files as merkabah_files
+from merkabah.core import blobstore as merkabah_blobstore
 from plugins import blog as blog_base
 from plugins.blog import forms as blog_forms
 from plugins.blog import models as blog_models
 from plugins.blog import datatables as blog_datatables
- 
-    
+
+
 class BlogIndexCtrl(MerkabahAdminBaseController):
     view_name = 'merkabah_admin_blog_index'
     template = 'merkabah/admin/plugin/index.html'
@@ -34,6 +37,10 @@ class BlogCategoryBaseCtrl(BlogIndexCtrl):
         super(BlogCategoryBaseCtrl, self).process_request(request, context, *args, **kwargs)
         context['kind_key'] = 'category'
 
+class BlogMediaBaseCtrl(BlogIndexCtrl):
+    def process_request(self, request, context, *args, **kwargs):
+        super(BlogMediaBaseCtrl, self).process_request(request, context, *args, **kwargs)
+        context['kind_key'] = 'media'
 
 class BlogPostIndexCtrl(BlogPostBaseCtrl):
     view_name = 'merkabah_admin_blog_post_index'
@@ -41,7 +48,8 @@ class BlogPostIndexCtrl(BlogPostBaseCtrl):
 
     def process_request(self, request, context, *args, **kwargs):
         super(BlogPostIndexCtrl, self).process_request(request, context, *args, **kwargs)
-        entities = blog_models.get_kind_class(context['kind_key']).query()
+        
+        entities = blog_utils.get_all_posts(1)
         context['add_link'] = urlresolvers.reverse('merkabah_admin_blog_post_create', args=())        
         context['datatable'] = blog_datatables.BlogPostGrid(entities, request, context)
         
@@ -50,32 +58,41 @@ class BlogPostCreateCtrl(BlogPostBaseCtrl):
     view_name = 'merkabah_admin_blog_post_create'
     template = 'merkabah/admin/plugin/entity/form.html'
     
-    def process_request(self, request, context, *args, **kwargs):    
+    def process_request(self, request, context, *args, **kwargs):
         super(BlogPostCreateCtrl, self).process_request(request, context, *args, **kwargs)
         
         context['form_type'] = 'Add'
-        context['form_action_url'] = merkabah_files.create_upload_url('/madmin/blog/post/add/?fishdicks=true')
+        #context['form_action_url'] = merkabah_blobstore.create_upload_url('/madmin/blog/post/add/?fishdicks=true')
         
         if request.POST:
             context['form'] = blog_forms.BlogPostForm(request.POST)
-            if context['form'].is_valid():
-                
-                upload_files = merkabah_files.get_uploads(request, 'image_file', True)
-                uploaded_file = upload_files[0]
-                uploaded_key = uploaded_file.key()
-                                                
+            if context['form'].is_valid():                                                
                 # cleanup categories
                 category_keys = []
                 for keystr in context['form'].cleaned_data['categories']:
                     category_keys.append(ndb.Key(urlsafe=keystr))
-                    
+                
+                published_date = None
+                if context['form'].cleaned_data['publish']:
+                    published_date = datetime.datetime.now()
+                
                 post = blog_models.BlogPost(
                     title=context['form'].cleaned_data['title'], 
-                    body=context['form'].cleaned_data['body'], 
+                    content=context['form'].cleaned_data['content'], 
                     slug=context['form'].cleaned_data['slug'],
                     categories=category_keys,
-                    primary_image_blob = uploaded_key
-                )                
+                    #primary_media_image = uploaded_key,
+                    published_date = published_date
+                )
+                
+                if context['form'].cleaned_data['primary_media_image']:
+                    blog_media_key = ndb.Key(urlsafe=context['form'].cleaned_data['primary_media_image'])
+                    post.primary_media_image = blog_media_key
+                    post.attached_media.append(blog_media_key)
+                else:
+                    post.primary_media_image = None
+                    
+                
                 post.put()
                                 
                 return redirect(urlresolvers.reverse('merkabah_admin_blog_post_index', args=()))
@@ -90,15 +107,23 @@ class BlogPostEditCtrl(BlogPostBaseCtrl):
     def process_request(self, request, context, *args, **kwargs):
         super(BlogPostEditCtrl, self).process_request(request, context, *args, **kwargs)
         
-        context['form_type'] = 'Edit'        
+        context['form_type'] = 'Edit'   
+        #context['form_action_url'] = merkabah_blobstore.create_upload_url('/madmin/blog/post/%s/edit/?fishdicks=true' % kwargs['entity_key'])
+        
         blog_post_key = ndb.Key(urlsafe=kwargs['entity_key'])
         post = blog_post_key.get()
         
         form_initial = {}
         form_initial['title'] = post.title 
         form_initial['slug'] = post.slug
-        form_initial['body'] = post.body
+        form_initial['content'] = post.content
+        form_initial['publish'] = bool(post.published_date)
         
+        if post.primary_media_image:
+            form_initial['primary_media_image'] = post.primary_media_image.urlsafe()
+        else:
+            form_initial['primary_media_image'] = ''            
+                
         # cleanup categories
         form_initial['categories'] = []
         for key in post.categories:
@@ -110,15 +135,32 @@ class BlogPostEditCtrl(BlogPostBaseCtrl):
         
             if context['form'].is_valid():
                 
+                # Published case...
+                if post.published_date and not context['form'].cleaned_data['publish']:
+                    published_date = None # Was published now not
+                elif not post.published_date and context['form'].cleaned_data['publish']:
+                    published_date = datetime.datetime.now() # Was published now not                    
+                else:
+                    published_date = post.published_date
+                    
                 # cleanup categories
                 category_keys = []
                 for keystr in context['form'].cleaned_data['categories']:
                     category_keys.append(ndb.Key(urlsafe=keystr))
                     
                 post.title=context['form'].cleaned_data['title']
-                post.body=context['form'].cleaned_data['body']
+                post.content=context['form'].cleaned_data['content']
                 post.slug=context['form'].cleaned_data['slug']
                 post.categories=category_keys
+                post.published_date = published_date
+                
+                if context['form'].cleaned_data['primary_media_image']:
+                    blog_media_key = ndb.Key(urlsafe=context['form'].cleaned_data['primary_media_image'])
+                    post.primary_media_image = blog_media_key
+                    post.attached_media.append(blog_media_key)
+                else:
+                    post.primary_media_image = None
+                
                 post.put()
                 
                 return redirect(urlresolvers.reverse('merkabah_admin_blog_post_index', args=()))
@@ -191,4 +233,57 @@ class BlogCategoryEditCtrl(BlogPostBaseCtrl):
             context['form'] = blog_forms.BlogCategoryForm(initial=form_initial)
 
 
+class BlogMediaIndexCtrl(BlogCategoryBaseCtrl):
+    view_name = 'merkabah_admin_blog_media_index'
+    template = 'merkabah/admin/plugin/entity/index.html'
 
+    def process_request(self, request, context, *args, **kwargs):
+        super(BlogMediaIndexCtrl, self).process_request(request, context, *args, **kwargs)
+
+        entities = blog_models.BlogMedia.query()
+        context['add_link'] = urlresolvers.reverse('merkabah_admin_blog_media_create', args=())
+        context['datatable'] = blog_datatables.BlogMediaGrid(entities, request, context)
+        
+
+class BlogMediaCreateCtrl(BlogPostBaseCtrl):
+    view_name = 'merkabah_admin_blog_media_create'
+    template = 'merkabah/admin/plugin/entity/form.html'
+    
+    def process_request(self, request, context, *args, **kwargs):
+        super(BlogMediaCreateCtrl, self).process_request(request, context, *args, **kwargs)
+        
+        context['form_type'] = 'Add'
+        context['form_action_url'] = merkabah_blobstore.create_upload_url('/madmin/blog/media/add/?fishdicks=true')
+        
+        if request.POST:
+            context['form'] = blog_forms.BlogMediaForm(request.POST)
+            if context['form'].is_valid():
+                # Process Images
+                upload_files = merkabah_files.get_uploads(request, 'image_file', True)
+                uploaded_key = None
+                if upload_files: # list of BlobInfo objects
+                    for blob_info in upload_files:
+                        blob_file_size = blob_info.size
+                        blob_content_type = blob_info.content_type
+                        
+                        blob_key = blob_info.key()
+                        media_key = blog_models.BlogMedia(blob_key=blob_key, content_type=blob_info.content_type, size=blob_file_size, filename=blob_info.filename).put()            
+                        #post.primary_media_image = media_key
+                        #post.attached_media.append(media_key)
+                
+                return redirect(urlresolvers.reverse('merkabah_admin_blog_media_index', args=()))    
+                #post.put()
+                
+                
+                
+                
+                
+        else:
+            context['form'] = blog_forms.BlogMediaForm(initial={'is_upload' : True})
+        
+
+class BlogMediaEditCtrl(BlogPostBaseCtrl):
+    view_name = 'merkabah_admin_blog_media_edit'
+    template = 'merkabah/admin/plugin/entity/form.html'
+        
+        
