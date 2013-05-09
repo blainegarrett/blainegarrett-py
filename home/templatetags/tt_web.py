@@ -3,7 +3,6 @@ from django.utils.safestring import mark_safe
 from django.utils.encoding import force_unicode
 from django.utils.html import conditional_escape
 from django.template.loader import render_to_string
-from bs4 import BeautifulSoup
 import logging    
 import re
 register = Library()
@@ -116,9 +115,11 @@ def truncate_html_words(s, num, end_text='...'):
 
 @register.simple_tag
 def render_excerpt(post):
+    from bs4 import BeautifulSoup
     from django.utils import text, html
     
     VALID_TAGS = ['p']
+    return 'sausage'
     
     soup = BeautifulSoup(post.content, "html.parser")
 
