@@ -9,6 +9,7 @@ from google.appengine.api import files
 class MainCtrl(merkabah_controllers.MerkabahController):
     view_name = 'main'
     template = 'main.html'
+    content_title = 'Welcome'
 
 class AboutCtrl(merkabah_controllers.MerkabahController):
     view_name = 'about'
@@ -110,7 +111,6 @@ class BlogCategoryCtrl(merkabah_controllers.MerkabahController):
                 
         posts = blog_models.BlogPost.query(blog_models.BlogPost.categories == cat.key)
         context['posts'] = posts    
-    
 
 class SoftwareCtrl(merkabah_controllers.MerkabahController):
     view_name = 'software_index'

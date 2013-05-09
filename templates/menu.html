@@ -8,14 +8,10 @@
 				<span class="icon-bar"></span>
 			</a>
 		
-			<a class="brand" ng-click="setRoute('/')" href="/"><img src="/static/themes/eBusiness/images/logo-Smooth-Blue.png" alt="Logo" class="logo"></a>
+			<a class="brand" ng-click="setRoute('/')" href="/"><img src="/static/themes/eBusiness/images/logo-Smooth-Blue.png" alt="Blaine Garrett" title="Click to return to homepage" class="logo"></a>
 			
 			<div class="nav-collapse collapse navigation-top">
-				<!-- 
-				<p class="navbar-text pull-right">	
-					Logged in as <a href="#" class="navbar-link">Username</a>		
-				</p>
-				-->
+				<!--  <p class="navbar-text pull-right">Logged in as <a href="#" class="navbar-link">Username</a></p> -->
 				
 				<ul class="nav nav-pills">
 					
@@ -32,9 +28,9 @@
 
 				-->
 
-					<li><a ng-click="setRoute($event, '/')" href="/">Home</a></li>
-					<li><a ng-click="setRoute($event, '/about/')" href="/about/">About</a></li>
-					<li><a ng-click="setRoute($event, '/blog/')"  href="/blog/">Blog</a></li>
+					<li><a ng-click="setRoute($event, '/')" title="Return to the home page" href="/">Home</a></li>
+					<li><a ng-click="setRoute($event, '/about/')" title="Learn more about me" href="/about/">About</a></li>
+					<li><a ng-click="setRoute($event, '/blog/')"  title="View my blog" href="/blog/">Blog</a></li>
 					<!-- 
 					<li><a ng-click="setRoute($event, '/artwork/')" >Artwork</a></li>																				
 					<li><a ng-click="setRoute($event, '/software/')" >Programming</a></li>
