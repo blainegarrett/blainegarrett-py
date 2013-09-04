@@ -4,6 +4,22 @@ runtime: python27
 api_version: 1
 threadsafe: no
 
+skip_files: |
+   ^(.*/)?(
+   (app\.yaml)|
+   (app\.yml)|
+   (index\.yaml)|
+   (index\.yml)|
+   (#.*#)|
+   (.*~)|
+   (.*\.py[co])|
+   (.git/.*)|
+   (^docs/.*)|
+   )$
+
+env_variables:
+   DJANGO_SETTINGS_MODULE: 'settings'
+
 libraries:
 - name: django
   version: "1.2"
@@ -13,16 +29,19 @@ libraries:
 builtins:
   - remote_api: on
   - deferred: on
-  
+
+includes:
+  - merkabah/merkabah.yaml
+
 handlers:
+- url: /merkabah/static
+  static_dir: merkabah/static
+  secure: optional
+
 - url: /static
   static_dir: static
   secure: optional
 
-- url: /merkabah/static
-  static_dir: merkabah/static
-  secure: optional
-    
 - url: /favicon\.ico
   static_files: favicon.ico
   upload: favicon\.ico
