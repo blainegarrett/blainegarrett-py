@@ -1,7 +1,14 @@
-'''
-Application Settings and default overrides
-'''
+"""
+.. module:: settings
+   :synopsis: Application settings for your application. This imports merkabah base settings and
+        lets you override here for your application. Also you can create a settingslocal
+        file for deployment settings.
+
+.. moduleauthor:: Blaine Garrett <blaine@blainegarrett.com>
+
+"""
 import os.path
+TEMPLATE_DIRS = []
 
 try:
     from merkabah import settings as merkabah_settings
@@ -17,6 +24,8 @@ DEBUG = False
 TEMPLATE_DIRS += (os.path.join(PROJECT_DIR, "templates"), )
 INSTALLED_APPS = ('merkabah', 'home')
 
+APPEND_SLASH = True
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -26,13 +35,20 @@ MIDDLEWARE_CLASSES = (
 ###############################
 # Installed Plugins
 ###############################
-INSTALLED_PLUGINS = ()
+INSTALLED_PLUGINS = ('blog')
 
 ###############################
 # Installation Properties
 ###############################
 MERKABAH_ADMIN_URL = 'madmin/'
 MERKABAH_PATH = 'merkabah/' # Used for template loaders, etc
+
+###############################
+# Admin Structure
+###############################
+o0 = {'title' :'Dashboard', 'icon' : 'icon-home', 'link' : '/', 'sub_items': []}
+o1 = {'title' :'Blog', 'icon' : 'icon-book', 'link' : '/plugin/blog', 'sub_items': []}
+ADMIN_PRIMARY_MENU = [o0, o1]
 
 ###############################
 # Local Development Overrides

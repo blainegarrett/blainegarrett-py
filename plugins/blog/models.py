@@ -67,3 +67,20 @@ kind_name_map = {
     'post' : BlogPost,
     'category' : BlogCategory
 }
+
+
+
+
+def make_dummy_data(total):
+    from datetime import datetime
+    i = 0
+    while i < total:
+
+        b = BlogPost()
+        b.title='Super Cool %s' % i
+        b.slug='super-cool-%s' % i
+        b.content = 'This <b>Thing that happened to me</b>'
+        b.published_date = datetime.now()
+        b.is_published = True
+        b.put()
+        i += 1

@@ -3,17 +3,19 @@ from django.core import urlresolvers
 
 class BlogPostActionColumn(merkabah_datatable.DatatableColumn):
     def render_content(self, obj):
-        link = urlresolvers.reverse('merkabah_admin_blog_post_edit', args=(obj.key.urlsafe(),))
-        output = '<a href="%s" class="button">Edit</a>' % link
-
-        link = obj.get_permalink()
+        #link = urlresolvers.reverse('merkabah_admin_blog_post_edit', args=(obj.key.urlsafe(),))
+        #output = '<a href="%s" class="button">Edit</a>' % link
+        output = ''
+        link = '#'
+        #link = obj.get_permalink()
         output += '<a href="%s" class="button">View</a>' % link
         
         return output        
 
 class BlogCategoryActionColumn(merkabah_datatable.DatatableColumn):
     def render_content(self, obj):
-        link = urlresolvers.reverse('merkabah_admin_blog_category_edit', args=(obj.key.urlsafe(),))
+        link = '#'
+        #link = urlresolvers.reverse('merkabah_admin_blog_category_edit', args=(obj.key.urlsafe(),))
         return '<a href="%s" class="button">Edit</a>' % link
         
 
