@@ -1,5 +1,4 @@
 <div class="wrapper" style="min-height : 600px;">
-
 	<div class="container-fluid text-background content-main">
 		<div class="padding-wrapper">
 			{% comment %}
@@ -14,23 +13,21 @@
 			<div class="row-fluid">
 				<div class="span9">
 					{% for post in posts %}
-						{% include 'blog/list_post.html' %}			
+						{% include 'blog/list_post.html' %}
+					{% empty %}
+						<b>No posts</b>
 					{% endfor %}
 				</div>
+				
 				<div class="span3">
-					
 					<ul>
 						{% for post in posts2 %}
-						<li>{{post.title}}</li>
+							<li>{{post.title}}</li>
 						{% endfor %}
 					</ul>
-					
-					
 				</div>
-				
+
 			</div>
-			
 		</div>
 	</div>
-	
 </div>
