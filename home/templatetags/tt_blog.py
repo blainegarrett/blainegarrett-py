@@ -8,6 +8,10 @@ import re
 register = Library()
 
 @register.simple_tag
+def fishballs():
+    return 'adasas'
+
+@register.simple_tag
 def newest_blog_posts():
     # TODO: Make this a cached node eventually
     from plugins.blog import utils as blog_utils
@@ -36,6 +40,7 @@ def carousel():
         },
         
     ]    
+
     return mark_safe(render_to_string('homepage_carousel.html', {'panels' : panels}))
 
 def truncate_html_words(s, num, end_text='...'):
@@ -119,7 +124,6 @@ def render_excerpt(post):
     from django.utils import text, html
     
     VALID_TAGS = ['p']
-    return 'sausage'
     
     soup = BeautifulSoup(post.content, "html.parser")
 

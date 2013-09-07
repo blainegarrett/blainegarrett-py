@@ -1,10 +1,5 @@
 from google.appengine.ext import ndb
 
-'''
-class Person(db.Model):
-    firstname = db.TextProperty()
-    lastname = db.TextProperty()
-'''  
 #import bs4
 #from bs4 import BeautifulSoup
 
