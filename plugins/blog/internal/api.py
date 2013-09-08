@@ -1,6 +1,3 @@
-import logging
-from datetime import datetime
-
 from google.appengine.datastore.datastore_query import Cursor
 from google.appengine.api import memcache
 
@@ -30,15 +27,10 @@ def get_posts(cursor=None, limit=POSTS_PER_PAGE):
     else:
         entities, next_cursor, more = q.fetch_page(limit, start_cursor=cursor)
 
-    logging.error(entities, next_cursor)
-
-    for entity in entities:
-        logging.warning(entity.title)
-
     return entities, next_cursor, more
 
 
-def get_published_posts(page_number=None, limit=POSTS_PER_PAGE):
+def get_published_posts(page_number=1, limit=POSTS_PER_PAGE):
     """
     Return a list of posts
     TODO: Pagination works on the idea that you have been to that page before, if first hit.. fire off deferred task to populate the index
@@ -58,8 +50,6 @@ def get_published_posts(page_number=None, limit=POSTS_PER_PAGE):
         entities, next_cursor, more = q.fetch_page(limit, start_cursor=start_cursor)
     else:
         entities, next_cursor, more = q.fetch_page(limit)
-
-    logging.error(entities, next_cursor)
 
     page_cursor_cache_key = memcache_cursor_key % (page_number + 1)     
     memcache.set(page_cursor_cache_key, next_cursor)

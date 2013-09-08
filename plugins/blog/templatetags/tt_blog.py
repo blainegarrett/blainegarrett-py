@@ -3,19 +3,21 @@ from django.utils.safestring import mark_safe
 from django.utils.encoding import force_unicode
 from django.utils.html import conditional_escape
 from django.template.loader import render_to_string
-import logging    
+import logging
 import re
+
+from plugins.blog.internal import api as blog_api
+
 register = Library()
 
 
 @register.simple_tag
 def newest_blog_posts():
     # TODO: Make this a cached node eventually
-    from plugins.blog import utils as blog_utils
 
-    posts = blog_utils.get_published_posts()
+    posts, cursor, more = blog_api.get_published_posts(page_number=1)
     output = ''
-    for post in posts:
+    for post in posts[:5]:
         output += '<li><a href="%s" title="%s">%s</a></li>' % (post.get_permalink(), post.title, post.title)    
     output = '<div class="footer-heading"><h3>From the Blog</h3></div><div class="row-fluid"><div class="span12"><ul>%s</ul></div></div>' % output
     return output
