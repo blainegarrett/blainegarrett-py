@@ -18,13 +18,16 @@
 						<b>No posts</b>
 					{% endfor %}
 
-					{% if more %}
-						<a href="?cursor={{ cursor.urlsafe }}">Next &raquo;</a>
-					{% endif %}
-
+					
+					<ul class="pager">
+					  	{% if cur_page > 1 %}
+						<li class="previous"><a href="/blog/{{ cur_page|add:"-1"}}/">&larr; Older</a></li>
+						{% endif %}
+					  	{% if more %}					
+					  	<li class="next"><a href="/blog/{{ cur_page|add:"1" }}">Newer &rarr;</a></li>
+						{% endif %}
+					</ul>
 				</div>
-				
-
 
 			</div>
 		</div>

@@ -16,14 +16,15 @@ class BlogCtrl(merkabah_controllers.MerkabahController):
 
     def process_request(self, request, context, *args, **kwargs):
         
-        cursor = request.GET.get('cursor', None)
+        #cursor = request.GET.get('cursor', None)
+        page_number = int(kwargs.get('page_number', 1))
 
-        #page_number = int(kwargs.get('page_number', 1))
-        posts, cursor, more = blog_api.get_published_posts(cursor=cursor) #(page_number)
+        posts, cursor, more = blog_api.get_published_posts(page_number)
 
         context['posts'] = posts
         context['cursor'] = cursor
         context['more'] = more
+        context['cur_page'] = page_number
 
 class BlogCategoryCtrl(merkabah_controllers.MerkabahController):
     view_name = 'artwork_index'
