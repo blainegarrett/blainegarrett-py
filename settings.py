@@ -22,7 +22,7 @@ if merkabah_settings:
 PROJECT_DIR = os.path.dirname(__file__) # this is not Django setting.
 DEBUG = False
 TEMPLATE_DIRS += (os.path.join(PROJECT_DIR, "templates"), )
-INSTALLED_APPS = ('merkabah', 'home')
+INSTALLED_APPS = ('merkabah', 'plugins.blog', 'home') # Note: Plugins need to appear first here
 
 APPEND_SLASH = True
 
