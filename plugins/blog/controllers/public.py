@@ -2,20 +2,28 @@
 A Collection of public controllers for the blog module
 """
 from merkabah.core import controllers as merkabah_controllers
-
 from plugins.blog.internal import api as blog_api
 
 
-class BlogCtrl(merkabah_controllers.MerkabahController):
+class BlogBaseCtrl(merkabah_controllers.MerkabahController):
+    """
+    Base Controller for all Public Blog Controllers
+    """
+
+    pass
+
+
+class BlogCtrl(BlogBaseCtrl):
     """
     Display a paginated list of lastest blog posts
     """
 
     view_name = 'blog_index'
     template = 'blog/index.html'
+    content_title = 'Blog'
 
     def process_request(self, request, context, *args, **kwargs):
-        
+
         #cursor = request.GET.get('cursor', None)
         page_number = int(kwargs.get('page_number', 1))
 
@@ -26,24 +34,25 @@ class BlogCtrl(merkabah_controllers.MerkabahController):
         context['more'] = more
         context['cur_page'] = page_number
 
-class BlogCategoryCtrl(merkabah_controllers.MerkabahController):
+
+class BlogCategoryCtrl(BlogBaseCtrl):
     view_name = 'artwork_index'
     template = 'blog/index.html'
-    
+
     def process_request(self, request, context, *args, **kwargs):
         from plugins.blog import models as blog_models
-        
+
         category_slug = kwargs.get('category_slug', None)
 
         cat = blog_models.BlogCategory.query(blog_models.BlogCategory.slug == category_slug).get()
         if not cat:
             return
-                
+
         posts = blog_models.BlogPost.query(blog_models.BlogPost.categories == cat.key)
         context['posts'] = posts
 
 
-class BlogPermalinkCtrl(merkabah_controllers.MerkabahController):
+class BlogPermalinkCtrl(BlogBaseCtrl):
     """
     Display a blog post
     """
@@ -51,23 +60,25 @@ class BlogPermalinkCtrl(merkabah_controllers.MerkabahController):
     # TODO: Handle case when post not found or is not public
     view_name = 'blog_view'
     template = 'blog/view.html'
+    content_title = 'Post'
 
     def process_request(self, request, context, *args, **kwargs):
-        from merkabah.core.blobstore import store_image_in_blobstore_by_url
-        from bs4 import BeautifulSoup
-        from google.appengine.ext import blobstore        
-        slug = kwargs['permalink'].split('/')[-2]
-        
-        post = blog_api.get_post_by_slug(slug)
+        """
+        Display a post by its slug given in the kwargs
+        """
+
+        slug = kwargs.get('permalink', None)
+        slug = slug.split('/')[-2]
+        post = blog_api.get_post_by_slug(slug) # TODO: Validate the date too
 
         if not post:
             raise Exception('Not found')
 
+        self.content_title = post.title
         context['post'] = post
-        
 
 
-class BlogPrimaryImageDisplay(merkabah_controllers.MerkabahController):
+class BlogPrimaryImageDisplay(BlogBaseCtrl):
     view_name = 'primary_image_display'
 
     def process_request(self, request, context, *args, **kwargs):

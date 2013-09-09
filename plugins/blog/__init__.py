@@ -2,7 +2,7 @@
 Blog Plugin
 """
 from plugins.blog.internal.api import get_posts
-from plugins.blog.datatables import BlogPostGrid
+#from plugins.blog.datatables import BlogPostGrid
 from merkabah.admin.controllers import TemplateResponse
 
 class BlogPlugin(object):

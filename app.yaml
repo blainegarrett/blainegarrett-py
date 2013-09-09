@@ -1,8 +1,14 @@
-application: blaine-garrett2
-version: 1
+application: blaine-garrett
+version: v20130908
 runtime: python27
 api_version: 1
 threadsafe: no
+
+libraries:
+- name: django
+  version: "1.2"
+- name: PIL
+  version: "1.1.7"
 
 skip_files: |
    ^(.*/)?(
@@ -20,11 +26,6 @@ skip_files: |
 env_variables:
    DJANGO_SETTINGS_MODULE: 'settings'
 
-libraries:
-- name: django
-  version: "1.2"
-- name: PIL
-  version: "1.1.7"
 
 builtins:
   - remote_api: on
