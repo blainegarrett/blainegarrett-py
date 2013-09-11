@@ -1,11 +1,15 @@
-import logging, os, sys
+import os
+import sys
+import logging
+
+import django.core.handlers.wsgi
+import django.core.signals
+import django.db
+import django.dispatch.dispatcher
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'merkabah/lib'))
-
-#from google.appengine.dist import use_library
-#use_library('django', '1.2')
 
 # Google App Engine imports.
 from google.appengine.ext.webapp import util
@@ -18,24 +22,17 @@ settings._target = None
 # 'project' is the name of the project created with django-admin.py
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 
-import logging
-import django.core.handlers.wsgi
-import django.core.signals
-import django.db
-import django.dispatch.dispatcher
-
+# Attach logging signals
 def log_exception(*args, **kwds):
-    logging.exception('Exception in request:')
+  logging.exception('Exception in request:')
 
-# Log errors.
-
-django.dispatch.dispatcher.Signal().connect(
-    log_exception, django.core.signals.got_request_exception)
+django.dispatch.Signal.connect(
+   django.core.signals.got_request_exception, log_exception)
 
 # Unregister the rollback event handler.
-django.dispatch.dispatcher.Signal().disconnect(
-    django.db._rollback_on_exception,
-    django.core.signals.got_request_exception)
+django.dispatch.Signal.disconnect(
+    django.core.signals.got_request_exception,
+    django.db._rollback_on_exception)
 
 def main():
     # Create a Django application for WSGI.

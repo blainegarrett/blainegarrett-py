@@ -14,7 +14,6 @@ register = Library()
 @register.simple_tag
 def newest_blog_posts():
     # TODO: Make this a cached node eventually
-
     posts, cursor, more = blog_api.get_published_posts(page_number=1)
     output = ''
     for post in posts[:5]:

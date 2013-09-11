@@ -23,12 +23,9 @@ class BlogCtrl(BlogBaseCtrl):
     content_title = 'Blog'
 
     def process_request(self, request, context, *args, **kwargs):
-
-        #cursor = request.GET.get('cursor', None)
+        #
         page_number = int(kwargs.get('page_number', 1))
-
         posts, cursor, more = blog_api.get_published_posts(page_number)
-
         context['posts'] = posts
         context['cursor'] = cursor
         context['more'] = more

@@ -65,9 +65,10 @@ kind_name_map = {
 
 
 
-
 def make_dummy_data(total):
     from datetime import datetime
+    from google.appengine.api import memcache
+
     i = 0
     while i < total:
 
@@ -79,3 +80,5 @@ def make_dummy_data(total):
         b.is_published = True
         b.put()
         i += 1
+
+    memcache.delete('cursor_index')
