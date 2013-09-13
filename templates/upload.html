@@ -1,0 +1,36 @@
+<div class="wrapper" style="min-height : 600px;">
+	<div class="container-fluid text-background content-main">
+
+		<div class="padding-wrapper">
+	
+			<div class="row-fluid">
+				<div class="span12 page-header">
+					<h1>Upload Test</h1>
+				</div>
+			</div>
+						
+			<div class="row-fluid">
+				<div class="span12">
+					
+					
+					{{ upload_url }}
+					<form action="{{ upload_url }}" method="POST" enctype="multipart/form-data">
+						<p>Title: <input type="title" name="name" /></p>
+						<p>File: <input type="file" name="the_file" /></p>
+						<p><input type="submit" class="btn"/></p>
+					</form>
+					
+					
+					
+					<div style="border:1px solid red; ">
+						{{ file_content }}
+					</div>
+					{{ file_url }}
+					
+					
+				</span>
+			</div>
+			
+		</div>
+	</div>
+</div>

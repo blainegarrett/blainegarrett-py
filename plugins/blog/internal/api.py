@@ -6,6 +6,7 @@ from google.appengine.api import memcache
 from google.appengine.ext import ndb
 
 from plugins.blog.internal.models import BlogPost
+from plugins.blog.internal.models import BlogMedia
 from plugins.blog.constants import POSTS_PER_PAGE
 from plugins.blog.constants import PUBLISHED_DATE_MIN
 
@@ -63,7 +64,23 @@ def get_published_posts(page_number=1, limit=POSTS_PER_PAGE):
         cursor = Cursor(urlsafe=urlsafe_cursor)
 
     # Run the query
-    return q.fetch_page(limit, start_cursor=cursor)
+    posts, cursor, more = q.fetch_page(limit, start_cursor=cursor)
+    
+    # Finally, bulk dereference the primary image
+    
+    p_map = {}
+    for p in posts:
+        if p.primary_media_image:
+            p_map[p.primary_media_image] = p
+
+    images = ndb.get_multi(p_map.keys())
+    for image in images:
+        post = p_map.get(image.key, None)
+        if post and image:
+            setattr(post, 'get_primary_media_image', image)
+    
+    return posts, cursor, more
+
 
 
 '''

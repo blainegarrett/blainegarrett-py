@@ -28,7 +28,7 @@ APPEND_SLASH = True
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
 )
 
 
@@ -46,6 +46,7 @@ MERKABAH_PATH = 'merkabah/' # Used for template loaders, etc
 ###############################
 # Admin Structure
 ###############################
+#TODO: Make this DS driven?
 o0 = {'title' :'Dashboard', 'icon' : 'icon-home', 'link' : '/', 'sub_items': []}
 o1 = {'title' :'Blog', 'icon' : 'icon-book', 'link' : '/plugin/blog', 'sub_items': []}
 ADMIN_PRIMARY_MENU = [o0, o1]

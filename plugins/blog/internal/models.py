@@ -1,4 +1,9 @@
+from __future__ import absolute_import
+
+import logging
+
 from google.appengine.ext import ndb
+from google.appengine.ext.blobstore import BlobInfo
 
 #import bs4
 #from bs4 import BeautifulSoup
@@ -28,6 +33,7 @@ class BlogMedia(ndb.Model):
     filename = ndb.StringProperty()
     blob_key = ndb.BlobKeyProperty()    
     content_type = ndb.StringProperty()
+    gcs_filename = ndb.StringProperty()
     size = ndb.IntegerProperty()
 
 class BlogCategory(ndb.Model):
@@ -64,7 +70,6 @@ kind_name_map = {
 }
 
 
-
 def make_dummy_data(total):
     from datetime import datetime
     from google.appengine.api import memcache
@@ -82,3 +87,98 @@ def make_dummy_data(total):
         i += 1
 
     memcache.delete('cursor_index')
+
+
+def kickoff_migration():
+    """
+    """
+
+    from google.appengine.ext import deferred
+
+    m_list = BlogMedia.query().fetch()
+
+    for m in m_list:
+        media_keystr = m.key.urlsafe()
+        deferred.defer(migrate_media_to_gs, media_keystr)
+
+
+def migrate_media_to_gs(media_key):
+    """
+    This should be run in a task
+    """
+    from merkabah.core.files.api.blobstore import Blobstore
+    from merkabah.core.files.api.cloudstorage import Cloudstorage
+
+    logging.debug('MIGRATING %s' % media_key)
+
+    key = ndb.Key(urlsafe=media_key)
+    media = key.get()
+    blob_key = media.blob_key
+
+    logging.debug(str(blob_key))
+
+    blob_info = BlobInfo.get(blob_key)
+    if not blob_info:
+        return
+        raise Exception('Blob Key does not exist')
+
+
+    # Calculate file extension from content type
+    if blob_info.content_type == 'image/gif':
+        extension = 'gif'
+    elif blob_info.content_type == 'image/png':
+        extension = 'png'
+    elif blob_info.content_type == 'image/jpeg':
+        extension = 'jpg'
+    else:
+        return
+
+    logging.debug(blob_info.content_type)
+    
+    fs1 = Blobstore()
+    fs2 = Cloudstorage('blaine-garrett')
+
+    file_content = fs1.read(blob_key)
+
+
+    filename = 'blog_images/%s.%s' % (blob_info.md5_hash, extension)
+
+    logging.debug(filename)
+
+    fs2.write(filename, file_content, blob_info.content_type)
+
+    #blob_file_size = blob_info.size
+    #blob_content_type = blob_info.content_type
+    media.gcs_filename = filename
+    media.put()
+    # Read the image
+
+def all_done():
+    """Will be run if the async task runs successfully."""
+    from furious.context import get_current_async
+
+    async = get_current_async()
+
+    logging.info('async task complete, value returned: %r', async.result)
+
+
+def handle_an_error():
+    """Will be run if the async task raises an unhandled exception."""
+
+    logging.warning('here....')
+    import os
+
+    from furious.context import get_current_async
+
+    exception_info = get_current_async().result
+
+    logging.info('async job blew up, exception info: %r', exception_info)
+
+    retries = int(os.environ['HTTP_X_APPENGINE_TASKRETRYCOUNT'])
+    if retries < 4:
+        raise exception_info.exception
+    else:
+        logging.info('Caught too many errors, giving up now.')
+
+
+    

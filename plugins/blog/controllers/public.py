@@ -81,8 +81,9 @@ class BlogPrimaryImageDisplay(BlogBaseCtrl):
     def process_request(self, request, context, *args, **kwargs):
         from google.appengine.ext import blobstore
         from google.appengine.api import images
-        from plugins.blog.intenal.models import BlogMedia
+        from plugins.blog.internal.models import BlogMedia
         from google.appengine.ext import ndb
+        from django import http
 
         super(BlogPrimaryImageDisplay, self).process_request(request, context, *args, **kwargs)
         blob_keystr = kwargs.get('blob_key', None)

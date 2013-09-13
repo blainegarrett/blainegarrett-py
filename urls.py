@@ -18,6 +18,9 @@ urlpatterns += patterns('controllers',
     url(r'^links/$', c.LinksCtrl.as_django_view(), name=c.LinksCtrl.view_name),
     url(r'^clients/$', c.ClientsCtrl.as_django_view(), name=c.ClientsCtrl.view_name),
     url(r'^contact/$', c.ContactCtrl.as_django_view(), name=c.ContactCtrl.view_name),
+
+    url(r'^upload/$', c.UploadCtrl.as_django_view(), name=c.UploadCtrl.view_name),
+    url(r'^upload_endpoint/$', c.UploadCtrlEndpoint.as_django_view(), name=c.UploadCtrlEndpoint.view_name),
     
     url(r'^blog_image/(?P<blob_key>[A-Za-z0-9-_:=]+)/$', bc.BlogPrimaryImageDisplay.as_django_view(), name=bc.BlogPrimaryImageDisplay.view_name),
     url(r'^(?P<category_slug>[\w-]+)/$', bc.BlogCategoryCtrl.as_django_view(), name=bc.BlogCategoryCtrl.view_name),

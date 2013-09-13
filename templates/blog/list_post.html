@@ -55,7 +55,7 @@ $('.dropdown-toggle').dropdown()
 			<a ng-click="setRoute('{{ post.get_permalink }}')" href="{{ post.get_permalink }}" >
 				
 			<a ng-click="setRoute('{{ post.get_permalink }}')" class="lightview" data-lightview-group="index" data-lightview-title="Image Title" data-lightview-caption="You can give your images captions" href="{{ post.get_permalink }}">
-				<img class="thumbnail" src="/blog_image/{{ post.primary_media_image.urlsafe }}/" alt="Placeholder Image" />
+				<img class="thumbnail" src="http://commondatastorage.googleapis.com/blaine-garrett/{{ post.get_primary_media_image.gcs_filename  }}" alt="Img" />
 			</a>
 			{% endif %}
 		</div>

@@ -84,6 +84,77 @@ class ClientsCtrl(BaseCtrl):
     content_title = 'Clients'
 
 
+class UploadCtrl(BaseCtrl):
+    """
+    Display list of clients - maps to /clients
+    """
+    view_name = 'upload'
+    template = 'upload.html'
+    content_title = 'Upload'
+
+    def process_request(self, request, context, *args, **kwargs):
+        from merkabah.core.files.api.cloudstorage import Cloudstorage
+        from merkabah.core.files.api.blobstore import Blobstore
+
+        fs = Cloudstorage('blaine-garrett')
+
+        context['upload_url'] = fs.create_upload_url('/upload_endpoint/')
+
+        #fs = Blobstore()
+        #context['upload_url'] = fs.create_upload_url('/upload_endpoint/')
+        #context['upload_url'] = fs.create_upload_url('/upload_endpoint/')
+
+        #filename = fs.write('zotz.html', 'what<b>evXXXXXX</b>er', 'text/html')
+        #content = fs.read(filename)
+
+        #fs = Blobstore()
+        #filename = blob_key = fs.write('snorf.html', 'whatevXXXXXXer', 'text/html')
+        #content = fs.read(blob_key)
+
+        #context['file_content'] = content
+        #context['file_url'] = fs.get_full_url(filename)
+
+
+class UploadCtrlEndpoint(BaseCtrl):
+    """
+    Display list of clients - maps to /clients
+    """
+
+    view_name = 'upload_endpoint'
+    template = 'upload_endpoint.html'
+    content_title = 'Upload Endpoint'
+    
+    def process_request(self, request, context, *args, **kwargs):
+        from plugins.blog.internal.models import BlogMedia
+
+        from merkabah.core.files.api.cloudstorage import Cloudstorage
+        from merkabah.core.files.api.blobstore import Blobstore
+
+        #from merkabah.core.files.api.cloudstorage import Cloudstorage
+        #from merkabah.core.files.api.blobstore import Blobstore
+
+        #fs = Cloudstorage('blaine-garrett')
+        #context['files'] = fs.get_files()
+
+        fs = Cloudstorage('blaine-garrett')
+        files = fs.get_uploads(request)
+
+        for f in files:
+            
+            b = BlogMedia()
+            b.content_type = f.content_type
+            b.size = f.size
+            b.gcs_filename = f.gs_object_name
+
+            b.put()
+            
+
+        
+        
+        
+
+#UploadCtrlEndpoint
+
 '''
 @csrf_exempt
 def upload_endpoint(request):

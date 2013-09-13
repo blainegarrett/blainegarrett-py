@@ -16,9 +16,9 @@ class BlogPlugin(object):
         Driver switchboard logic
         """
 
-        entities, cursor, more = get_posts()
-        context['grid'] = BlogPostGrid(entities, request, context)
-        return TemplateResponse(self, 'admin/plugin/index.html', context)
+        #entities, cursor, more = get_posts()
+        #context['grid'] = BlogPostGrid(entities, request, context)
+        #return TemplateResponse(self, 'admin/plugin/index.html', context)
         
     
     #def process_create(self, request, context, *args, **kwargs):
