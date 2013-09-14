@@ -1,5 +1,5 @@
 application: blaine-garrett
-version: v20130910
+version: v20130913-stable
 runtime: python27
 api_version: 1
 threadsafe: no
@@ -20,12 +20,13 @@ skip_files: |
    (.*~)|
    (.*\.py[co])|
    (.git/.*)|
+   (.gitignore)|
+   (.DS_Store)|
    (^docs/.*)|
    )$
 
 env_variables:
    DJANGO_SETTINGS_MODULE: 'settings'
-
 
 builtins:
   - remote_api: on

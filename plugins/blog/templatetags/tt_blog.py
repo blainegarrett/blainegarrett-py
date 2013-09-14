@@ -102,8 +102,16 @@ def render_excerpt(post):
     from django.utils import text, html
     
     VALID_TAGS = ['p']
+
+    content = post.content
+
+    content = re.sub(r"(\[caption)([^\]]*)(])(.*)(\[/caption\])", '', content)
+    content = re.sub(r'(\[source((code)*? lang(uage)*?)*?=([\'"]*?)(python)([\'"]*?)])(.*?)(\[/source(code)*?\])', '', content, flags=re.MULTILINE|re.DOTALL)
+
+    content = re.sub(r"(\[caption)([^\]]*)(])(.*)(\[/caption\])", '', content)
+    content = re.sub(r"(\[youtube:)([^\]]*)(])", '', content)
     
-    soup = BeautifulSoup(post.content, "html.parser")
+    soup = BeautifulSoup(content, "html.parser")
 
     for tag in soup.findAll(True):
         if tag.name not in VALID_TAGS:
@@ -117,6 +125,24 @@ def render_excerpt(post):
 def render_content(content):
     # Apply rendering filter plugins
     #TODO: Make this more modular
+    
+    def wp_youtube_shortcode_proc(m):
+        
+        if m.group(2):
+            video_id = m.group(2).split('watch?v=')[1]
+            return '<iframe width="420" height="315" src="http://www.youtube.com/embed/%s" frameborder="0" allowfullscreen></iframe>' % (video_id)
+        else:
+            return m.group(0)
+
+    def wp_code_shortcode_proc(m):
+        if m.group(8) and m.group(6):
+            attrs = 'class="brush: %s;"' % m.group(6)
+            code = m.group(8).replace('\n','<NEWLINE />')
+            return '<pre ' + attrs + '>' + code + '</pre>'
+        else:
+            code = m.group(8).replace('\n','<NEWLINE />')
+            return '<pre>' + code + '</pre>'
+
     def wp_caption_shortcode_proc(m):
         classes = ['thumbnail']
         attrs = str(m.group(2))
@@ -133,7 +159,14 @@ def render_content(content):
     
     # WP Caption shortcode
     content = re.sub(r"(\[caption)([^\]]*)(])(.*)(\[/caption\])", wp_caption_shortcode_proc, content)
+    content = re.sub(r'(\[source((code)*? lang(uage)*?)*?=([\'"]*?)(python)([\'"]*?)])(.*?)(\[/source(code)*?\])', wp_code_shortcode_proc, content, flags=re.MULTILINE|re.DOTALL)
+
+    content = re.sub(r"(\[caption)([^\]]*)(])(.*)(\[/caption\])", wp_caption_shortcode_proc, content)
+    content = re.sub(r"(\[youtube:)([^\]]*)(])", wp_youtube_shortcode_proc, content)
+    
     
     # nl2br
     content = content.replace('\n','<br />\n')
+    content = content.replace('<NEWLINE />','\n')
+
     return mark_safe(content)    

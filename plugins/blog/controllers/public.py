@@ -75,6 +75,7 @@ class BlogPermalinkCtrl(BlogBaseCtrl):
         context['post'] = post
 
 
+'''
 class BlogPrimaryImageDisplay(BlogBaseCtrl):
     view_name = 'primary_image_display'
 
@@ -120,3 +121,4 @@ class BlogPrimaryImageDisplay(BlogBaseCtrl):
             start = temp_end + 1
             end = temp_end + step
         return http.HttpResponse(blob_concat, mimetype=blob_content_type, status=200)
+'''
