@@ -9,7 +9,6 @@ class BlogBaseCtrl(merkabah_controllers.MerkabahController):
     """
     Base Controller for all Public Blog Controllers
     """
-
     pass
 
 
@@ -19,7 +18,7 @@ class BlogCtrl(BlogBaseCtrl):
     """
 
     view_name = 'blog_index'
-    template = 'blog/index.html'
+    template = 'plugins/blog/index.html'
     content_title = 'Blog'
 
     def process_request(self, request, context, *args, **kwargs):
@@ -34,7 +33,7 @@ class BlogCtrl(BlogBaseCtrl):
 
 class BlogCategoryCtrl(BlogBaseCtrl):
     view_name = 'artwork_index'
-    template = 'blog/index.html'
+    template = 'plugins/blog/index.html'
 
     def process_request(self, request, context, *args, **kwargs):
         from plugins.blog import models as blog_models
@@ -56,7 +55,7 @@ class BlogPermalinkCtrl(BlogBaseCtrl):
 
     # TODO: Handle case when post not found or is not public
     view_name = 'blog_view'
-    template = 'blog/view.html'
+    template = 'plugins/blog/view.html'
     content_title = 'Post'
 
     def process_request(self, request, context, *args, **kwargs):
