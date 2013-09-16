@@ -1,12 +1,12 @@
 from merkabah.core import forms as merkabah_forms
 from django import forms
-from plugins.blog import models as blog_models
+from plugins.blog.internal import models as blog_models
 
 
 class BlogPostForm(merkabah_forms.MerkabahBaseForm):
-    slug = forms.CharField(label='Slug', max_length=100, required=True)    
-    title = forms.CharField(label='Title', max_length=100, required=True)
-    content = forms.CharField(label='Content', required=True, widget=forms.Textarea())
+    slug = forms.CharField(label='Slug', max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder': 'Slug'}))
+    title = forms.CharField(label='Title', max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder': 'Title'}))
+    content = forms.CharField(label='Content', required=True, widget=forms.Textarea(attrs={'placeholder': 'Content'}))
     publish = forms.BooleanField(required=False)
         
     categories = forms.MultipleChoiceField(required=False, choices=[])
