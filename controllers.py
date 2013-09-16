@@ -4,10 +4,9 @@ TODO: Most of these can be converted to pages at a later date
 """
 
 from __future__ import with_statement
-from merkabah.core import controllers as merkabah_controllers
+from merkabah.core.controllers import MerkabahDjangoController
 
-
-class BaseCtrl(merkabah_controllers.MerkabahController):
+class BaseCtrl(MerkabahDjangoController):
     """
     Base controller for all of BlaineGarrett.com
     """

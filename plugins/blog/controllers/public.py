@@ -1,11 +1,11 @@
 """
 A Collection of public controllers for the blog module
 """
-from merkabah.core import controllers as merkabah_controllers
+from merkabah.core.controllers import MerkabahDjangoController
 from plugins.blog.internal import api as blog_api
 
 
-class BlogBaseCtrl(merkabah_controllers.MerkabahController):
+class BlogBaseCtrl(MerkabahDjangoController):
     """
     Base Controller for all Public Blog Controllers
     """
