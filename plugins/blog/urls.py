@@ -1,4 +1,9 @@
-from django.conf.urls.defaults import *
+"""
+Blog urls? Are these in use?
+"""
+
+"""
+from django.conf.urls.defaults import patterns, url
 from plugins.blog import views as blog_views
 
 urlpatterns = patterns('plugins.admin.views',
@@ -21,3 +26,4 @@ urlpatterns = patterns('plugins.admin.views',
     #url(r'^$', blog_views.BlogViewCtrl.as_django_view(), name=blog_views.IndexCtrl.view_name),                
 
 )
+"""
