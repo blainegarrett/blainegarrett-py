@@ -5,7 +5,7 @@ Blog Plugin
 from plugins.blog.forms import BlogPostForm
 from plugins.blog.internal.api import get_posts
 #from plugins.blog.datatables import BlogPostGrid
-from merkabah.core.controllers import TemplateResponse, FormDialogResponse, AlertResponse, FormResponse, FormErrorResponse
+from merkabah.core.controllers import TemplateResponse, FormDialogResponse, AlertResponse, FormResponse, FormErrorResponse, CloseFormResponse
 
 class BlogPlugin(object):
     name = 'Blog'
@@ -33,7 +33,7 @@ class BlogPlugin(object):
             form = BlogPostForm(request.POST)
             if form.is_valid():
 
-                raise Exception('FORM VALID')
+                return AlertResponse("Form Saved..."), CloseFormResponse('create_form')
                 
                 c = Contact(firstname=form.cleaned_data['firstname'], lastname=form.cleaned_data['lastname'], email=form.cleaned_data['email'])
                 c.put()
