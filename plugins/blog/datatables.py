@@ -1,4 +1,4 @@
-from merkabah.core import grids as merkabah_datatable
+from merkabah.core import datatable as merkabah_datatable
 from django.core import urlresolvers
 
 class BlogPostActionColumn(merkabah_datatable.DatatableColumn):
@@ -7,7 +7,7 @@ class BlogPostActionColumn(merkabah_datatable.DatatableColumn):
         #output = '<a href="%s" class="button">Edit</a>' % link
         output = ''
         link = '#'
-        #link = obj.get_permalink()
+        link = obj.get_permalink()
         output += '<a href="%s" class="button">View</a>' % link
         
         return output        

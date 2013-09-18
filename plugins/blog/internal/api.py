@@ -1,5 +1,6 @@
 import logging
 
+from datetime import datetime
 from google.appengine.datastore.datastore_query import Cursor
 from google.appengine.api import memcache
 
@@ -82,6 +83,36 @@ def get_published_posts(page_number=1, limit=POSTS_PER_PAGE):
     return posts, cursor, more
 
 
+def create_post(cleaned_data):
+    """
+    """
+    
+    # Category checks
+    category_keys = []
+    for keystr in cleaned_data['categories']:
+        category_keys.append(ndb.Key(urlsafe=keystr))
+
+    published_date = None
+    if cleaned_data['publish']:
+        published_date = datetime.now()
+
+    post = BlogPost(
+        title=cleaned_data['title'],
+        content=cleaned_data['content'],
+        slug=cleaned_data['slug'],
+        categories=category_keys,
+        published_date = published_date
+    )
+
+    if cleaned_data['primary_media_image']:
+        blog_media_key = ndb.Key(urlsafe=cleaned_data['primary_media_image'])
+        post.primary_media_image = blog_media_key
+        post.attached_media.append(blog_media_key)
+    else:
+        post.primary_media_image = None
+
+    post.put()
+    return post
 
 '''
 def get_published_posts(page_number=1, limit=POSTS_PER_PAGE):

@@ -6,7 +6,7 @@ from plugins.blog.internal import models as blog_models
 class BlogPostForm(merkabah_forms.MerkabahBaseForm):
     slug = forms.CharField(label='Slug', max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder': 'Slug'}))
     title = forms.CharField(label='Title', max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder': 'Title'}))
-    content = forms.CharField(label='Content', required=True, widget=forms.Textarea(attrs={'placeholder': 'Content'}))
+    content = forms.CharField(label='Content', required=True, widget=forms.Textarea(attrs={'placeholder': 'Content', 'class': 'ckeditor'}))
     publish = forms.BooleanField(required=False)
         
     categories = forms.MultipleChoiceField(required=False, choices=[])

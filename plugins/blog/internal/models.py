@@ -11,7 +11,7 @@ class Page(ndb.Model):
     """
 
     primary_content = ndb.TextProperty()
-    slug = ndb.StringProperty()
+    slug = ndb.StringProperty(indexed=True)
     title = ndb.StringProperty()
 
 
