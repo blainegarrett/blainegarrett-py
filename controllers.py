@@ -96,7 +96,6 @@ class UploadCtrl(BaseCtrl):
         from merkabah.core.files.api.blobstore import Blobstore
 
         fs = Cloudstorage('blaine-garrett')
-
         context['upload_url'] = fs.create_upload_url('/upload_endpoint/')
 
         #fs = Blobstore()
@@ -144,8 +143,8 @@ class UploadCtrlEndpoint(BaseCtrl):
             b.content_type = f.content_type
             b.size = f.size
             b.gcs_filename = f.gs_object_name
-
             b.put()
+
             
 
         

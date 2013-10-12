@@ -36,7 +36,7 @@ class BlogCategoryCtrl(BlogBaseCtrl):
     template = 'plugins/blog/index.html'
 
     def process_request(self, request, context, *args, **kwargs):
-        from plugins.blog import models as blog_models
+        from plugins.blog.internal import models as blog_models
 
         category_slug = kwargs.get('category_slug', None)
 

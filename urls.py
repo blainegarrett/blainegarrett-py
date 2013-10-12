@@ -23,8 +23,8 @@ urlpatterns += patterns('controllers',
     url(r'^clients/$', *c.ClientsCtrl.django_url_args()),
     url(r'^contact/$', *c.ContactCtrl.django_url_args()),
 
-    #url(r'^upload/$', *c.UploadCtrl.django_url_args()),
-    #url(r'^upload_endpoint/$', *c.UploadCtrlEndpoint.django_url_args()),
+    url(r'^upload/$', *c.UploadCtrl.django_url_args()),
+    url(r'^upload_endpoint/$', *c.UploadCtrlEndpoint.django_url_args()),
 
     #url(r'^blog_image/(?P<blob_key>[A-Za-z0-9-_:=]+)/$', *bc.BlogPrimaryImageDisplay.django_url_args()),
     url(r'^(?P<category_slug>[\w-]+)/$', *bc.BlogCategoryCtrl.django_url_args()),

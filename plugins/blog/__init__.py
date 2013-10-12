@@ -37,14 +37,21 @@ class BlogPlugin(object):
 
                 p = create_post(form.cleaned_data)
                 return AlertResponse("Form Saved..."), CloseFormResponse('create_form')
-
-                return AlertResponse("Form Saved..."), merkabah_controllers.CloseFormResponse('create_form')
             else:
                 return FormErrorResponse(form, id='create_form')
 
         if request.is_ajax():
             return FormResponse(form, id='create_form', title="Create a new Blog Post", target_url='/madmin/plugin/blog/create/', target_action='create')
         return TemplateResponse('admin/plugin/inline_form_wrapper.html', context)
+    
+    def process_images(self, request, context, *args, **kwargs):
+        
+        from merkabah.core.files.api.cloudstorage import Cloudstorage
+
+        fs = Cloudstorage('blaine-garrett')
+        context['upload_url'] = fs.create_upload_url('/upload_endpoint/')
+
+        return TemplateResponse('plugins/blog/images.html', context)
 
 
 # Register Plugin
