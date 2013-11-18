@@ -3,6 +3,7 @@ A Collection of public controllers for the blog module
 """
 from merkabah.core.controllers import MerkabahDjangoController
 from plugins.blog.internal import api as blog_api
+from django.http import Http404
 
 
 class BlogBaseCtrl(MerkabahDjangoController):
@@ -68,7 +69,7 @@ class BlogPermalinkCtrl(BlogBaseCtrl):
         post = blog_api.get_post_by_slug(slug) # TODO: Validate the date too
 
         if not post:
-            raise Exception('Not found')
+            raise Http404
 
         self.content_title = post.title
         context['post'] = post

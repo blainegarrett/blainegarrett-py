@@ -1,5 +1,5 @@
 application: blaine-garrett
-version: v20131011
+version: v20131011b
 runtime: python27
 api_version: 1
 threadsafe: no

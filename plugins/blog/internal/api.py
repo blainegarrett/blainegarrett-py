@@ -11,7 +11,9 @@ from plugins.blog.internal.models import BlogMedia
 from plugins.blog.constants import POSTS_PER_PAGE
 from plugins.blog.constants import PUBLISHED_DATE_MIN
 
-
+############################
+# Posts
+###########################
 
 def get_post_by_slug(slug):
     post = BlogPost.query(BlogPost.slug == slug).get()
@@ -176,3 +178,13 @@ def build_index(q):
     
     # Construct index
     return {'total_pages': total_pages, 'total_items': total_items, 'cursors': cursors}
+
+
+#####################
+# Images
+#####################
+def get_images():
+    # TODO: Paginate this, etc
+    entities = BlogMedia.query().order(-BlogMedia.gcs_filename).fetch(1000)
+    
+    return entities

@@ -25,6 +25,13 @@ class BlogMedia(ndb.Model):
     content_type = ndb.StringProperty()
     gcs_filename = ndb.StringProperty()
     size = ndb.IntegerProperty()
+    
+    
+    @property
+    def size_in_kb(self):
+        return self.size * 1000
+    
+    
 
 
 class BlogCategory(ndb.Model):
@@ -60,7 +67,7 @@ class BlogPost(ndb.Model):
         return BlogMedia.get(self.primary_media_image).filename
 
     def get_permalink(self):
-        dt = self.created_date
+        dt = self.published_date
         return '/%02d/%02d/%02d/%s' % (dt.year, dt.month, dt.day, self.slug)
 
 #kind_name_map = { 'post' : BlogPost, 'category' : BlogCategory }

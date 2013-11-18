@@ -5,6 +5,8 @@ TODO: Most of these can be converted to pages at a later date
 
 from __future__ import with_statement
 from merkabah.core.controllers import MerkabahDjangoController
+import logging
+
 
 class BaseCtrl(MerkabahDjangoController):
     """
@@ -121,7 +123,7 @@ class UploadCtrlEndpoint(BaseCtrl):
     view_name = 'upload_endpoint'
     template = 'upload_endpoint.html'
     content_title = 'Upload Endpoint'
-    
+
     def process_request(self, request, context, *args, **kwargs):
         from plugins.blog.internal.models import BlogMedia
 
@@ -137,18 +139,26 @@ class UploadCtrlEndpoint(BaseCtrl):
         fs = Cloudstorage('blaine-garrett')
         files = fs.get_uploads(request)
 
+        logging.error(files)
+
+        logging.error(request.POST)
+
         for f in files:
+
+            # move file
+            file_content = fs.read(f.gs_object_name.replace('/gs', '', 1))
+            new_filename = 'sasquatch/' + f.filename
+
+            fs.write(new_filename, file_content, f.content_type)
+            logging.error(f.__dict__)
+            logging.debug(f.gs_object_name)
             
             b = BlogMedia()
             b.content_type = f.content_type
             b.size = f.size
-            b.gcs_filename = f.gs_object_name
+            b.gcs_filename = new_filename
+            logging.debug(file_content)
             b.put()
-
-            
-
-        
-        
         
 
 #UploadCtrlEndpoint

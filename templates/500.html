@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block body_content %}
+	
+	{% include "menu.html" %}
+	
+	<!-- header-padding : this div adds padding to push content below fixed menu -->
+	<div class="header-padding hidden-phone hidden-tablet">&nbsp;</div>
+	
+	<!-- start wrapper -->
+	<div ng-view id="body_content">
+
+
+
+
+
+		<div class="container-fluid text-background content-main">
+			<div class="padding-wrapper">
+
+				<div class="row-fluid">
+					<div class="span12 page-header">
+						<h1>500 Server Error</h1>
+						<p class="subtitle">Sorry about that. We've run into a bug. We've logged it and will fix it. In the meantime, return to the <a href="/">homepage</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+
+	</div>
+	<!-- end wrapper -->
+
+	{% include "footer.html" %}
+{% endblock %}
