@@ -95,7 +95,7 @@ class UploadCtrl(BaseCtrl):
 
     def process_request(self, request, context, *args, **kwargs):
         from merkabah.core.files.api.cloudstorage import Cloudstorage
-        from merkabah.core.files.api.blobstore import Blobstore
+        #from merkabah.core.files.api.blobstore import Blobstore
 
         fs = Cloudstorage('blaine-garrett')
         context['upload_url'] = fs.create_upload_url('/upload_endpoint/')
@@ -128,7 +128,7 @@ class UploadCtrlEndpoint(BaseCtrl):
         from plugins.blog.internal.models import BlogMedia
 
         from merkabah.core.files.api.cloudstorage import Cloudstorage
-        from merkabah.core.files.api.blobstore import Blobstore
+        #from merkabah.core.files.api.blobstore import Blobstore
 
         #from merkabah.core.files.api.cloudstorage import Cloudstorage
         #from merkabah.core.files.api.blobstore import Blobstore
