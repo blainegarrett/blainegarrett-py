@@ -1,3 +1,3 @@
 [submodule "merkabah"]
 	path = merkabah
-	url = git@github-blainegarrett:blainegarrett/merkabah.git
+url=git@github.com:blainegarrett/merkabah.git
