@@ -3,7 +3,7 @@ A Collection of public controllers for the blog module
 """
 from merkabah.core.controllers import MerkabahDjangoController
 from plugins.blog.internal import api as blog_api
-from django.http import Http404
+from django.http import Http404, HttpResponsePermanentRedirect
 
 
 class BlogBaseCtrl(MerkabahDjangoController):
@@ -64,12 +64,26 @@ class BlogPermalinkCtrl(BlogBaseCtrl):
         Display a post by its slug given in the kwargs
         """
 
-        slug = kwargs.get('permalink', None)
-        slug = slug.split('/')[-2]
-        post = blog_api.get_post_by_slug(slug) # TODO: Validate the date too
+        target_slug = kwargs.get('permalink', None)
+        slug_chunks = target_slug.split('/')
+
+        slug = slug_chunks[-2]
+        post = blog_api.get_post_by_slug(slug.lower())
 
         if not post:
             raise Http404
+
+        if not post.slug == slug:
+            return HttpResponsePermanentRedirect(post.get_permalink())
+
+        # Ensure the published date matches the slug for url base plugins, etc
+        pub = post.published_date
+        expected_date_slug = '%02d/%02d/%02d' % (int(pub.year), int(pub.month), int(pub.day))
+        actual_date_slug = target_slug[0:10]
+        
+        if not expected_date_slug == actual_date_slug:
+            # Redirect to the actual permalink
+            return HttpResponsePermanentRedirect(post.get_permalink())
 
         self.content_title = post.title
         context['post'] = post
