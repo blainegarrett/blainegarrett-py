@@ -14,11 +14,25 @@ register = Library()
 @register.simple_tag
 def newest_blog_posts():
     # TODO: Make this a cached node eventually
+    
     posts, cursor, more = blog_api.get_published_posts(page_number=1)
-    output = ''
-    for post in posts[:5]:
-        output += '<li><a href="%s" title="%s">%s</a></li>' % (post.get_permalink(), post.title, post.title)    
-    output = '<div class="footer-heading"><h3>From the Blog</h3></div><div class="row-fluid"><div class="span12"><ul>%s</ul></div></div>' % output
+    output = '<div class="posts">\
+        <div class="headline"><h2>Recent Blog Entries</h2></div>'
+    for post in posts[:2]:
+        image_filename = ''
+        if post.primary_media_image:
+            image_filename = post.primary_media_image.get().gcs_filename
+
+        output += '<dl class="dl-horizontal">\
+            <dt><a href="%s"><img src="http://commondatastorage.googleapis.com/blaine-garrett/%s" alt="%s" /></a></dt>\
+            <dd>\
+                <p><a href="%s" title="%s">%s</a></p> \
+            </dd>\
+        </dl>' % (post.get_permalink(), image_filename, post.title, post.get_permalink(), post.title, post.title)
+
+    output += '</div>'
+    
+    
     return output
 
 def truncate_html_words(s, num, end_text='...'):

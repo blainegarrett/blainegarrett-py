@@ -4,13 +4,14 @@ A Collection of public controllers for the blog module
 from merkabah.core.controllers import MerkabahDjangoController
 from plugins.blog.internal import api as blog_api
 from django.http import Http404, HttpResponsePermanentRedirect
+from django.core.urlresolvers import reverse
 
 
 class BlogBaseCtrl(MerkabahDjangoController):
     """
     Base Controller for all Public Blog Controllers
     """
-    pass
+    chrome_template = 'v2/base.html'
 
 
 class BlogCtrl(BlogBaseCtrl):
@@ -21,6 +22,10 @@ class BlogCtrl(BlogBaseCtrl):
     view_name = 'blog_index'
     template = 'plugins/blog/index.html'
     content_title = 'Blog'
+
+    @property
+    def content_breadcrumbs(self):
+        return [('/', 'Home'), (reverse(self.view_name, args=[]), self.content_title)]
 
     def process_request(self, request, context, *args, **kwargs):
         #
@@ -59,6 +64,10 @@ class BlogPermalinkCtrl(BlogBaseCtrl):
     template = 'plugins/blog/view.html'
     content_title = 'Post'
 
+    @property
+    def content_breadcrumbs(self):
+        return [('/', 'Home'), (reverse('blog_index', args=[]), 'Blog'), (self.post.get_permalink, self.post.title)]
+
     def process_request(self, request, context, *args, **kwargs):
         """
         Display a post by its slug given in the kwargs
@@ -69,6 +78,8 @@ class BlogPermalinkCtrl(BlogBaseCtrl):
 
         slug = slug_chunks[-2]
         post = blog_api.get_post_by_slug(slug.lower())
+        
+        self.post = post # Templ Hack for breadcrumbs
 
         if not post:
             raise Http404

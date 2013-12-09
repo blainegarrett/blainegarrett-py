@@ -1,72 +1,24 @@
 {% load tt_blog %}
-	
-<style>
-	.blog_entry {
-		
-		padding-bottom : 20px;
-		padding-top : 20px;		
-	}
-	.blog_entry h2 {
-		font-weight : normal;
-	}
-	.post-info-wrap { margin-left: -51px; float: left; clear: both; margin-bottom: 15px; }
-	.post-info-wrap-home { margin-left: -31px; float: left; clear: both; margin-bottom: 15px; }
-	.post-info { float: left; color: #fff; margin: 0px; display: block; background-image: url('/static/themes/corporatus/img/ribbon_bj.gif'); height: 41px; font-size: 19px; padding: 8px 60px 0px 40px; }
-	.post-info a:link, .post-info a:hover, .post-info a:visited { color: 	#ffe8a1; }
-	.home-title-image { float: left; }
-	
-	.readmore-container {
-			border-bottom : 2px dotted silver;
-	}
-	.readmore2 {
-		margin: 20px 0px -29px 0px;
-		float: right;
-		border: none;
-	}	
-	
-	.wrapper .padding-wrapper {
-		padding: 20px 40px 20px 20px;
-	}
 
-</style>
+<div class="row blog blog-medium margin-bottom-40">
+    <div class="col-md-5">
+		{% if post.primary_media_image %}
+        	<img class="img-responsive" src="http://commondatastorage.googleapis.com/blaine-garrett/{{ post.get_primary_media_image.gcs_filename  }}" alt="">
+		{% endif %}
+    </div>    
+    <div class="col-md-7">
+        <h2><a href="{{ post.get_permalink }}">{{ post.title }}</a></h2>
+        <ul class="list-unstyled list-inline blog-info">
+            <li><i class="icon-calendar"></i> Published {{ post.published_date|date:"F d, Y" }} <!-- November 02, 2013 --></li>
 
-<script>
-$('.dropdown-toggle').dropdown()
-</script>
-
-<div class="blog_entry">
-	<div class="row-fluid">
-		<div class="span12">
-			<h2><a ng-click="setRoute('{{ post.get_permalink }}')" href="{{ post.get_permalink }}" >{{post.title}}</a></h2>
-		</div>
-	</div>
-	<div class="row-fluid">
-		<div class="span12">
-			<div class="post-info-wrap"> 
-				<img src="/static/themes/corporatus/img/ribbon_wrap.gif" alt="home title" class="home-title-image" /> 
-				<span class="post-info">Posted on {{ post.published_date }}</span> 
-				<img src="/static/themes/corporatus/img/ribbon_end.gif" alt="home title" class="home-title-image" />
-			</div>
-		</div>
-	</div>
-	<div class="row-fluid">				
-		<div class="span3">
-			{% if post.primary_media_image %}
-			<a ng-click="setRoute('{{ post.get_permalink }}')" href="{{ post.get_permalink }}" >
-				
-			<a ng-click="setRoute('{{ post.get_permalink }}')" class="lightview" data-lightview-group="index" data-lightview-title="Image Title" data-lightview-caption="You can give your images captions" href="{{ post.get_permalink }}">
-				<img class="thumbnail" src="http://commondatastorage.googleapis.com/blaine-garrett/{{ post.get_primary_media_image.gcs_filename  }}" alt="Img" />
-			</a>
-			{% endif %}
-		</div>
-	
-		<div class="span9">
-			{% render_excerpt post %}
-		</div>
-	</div>
-	<div class="row-fluid readmore-container">
-		<a ng-click="setRoute('{{ post.get_permalink }}')" href="{{ post.get_permalink }}" >
-			<img src="/static/themes/eBusiness/images/readmore-2-Smooth-Blue.gif" alt="readmore" class="readmore2" />
-		</a>
-	</div>
+            <!-- <li><i class="icon-comments"></i> <a href="#">24 Comments</a></li>
+			-->
+			<li><i class="icon-tags"></i> Posted in Blog</li>
+        </ul>
+        <p>{% render_excerpt post %}</p>
+        <p><a class="btn-u btn-u-small" href="{{ post.get_permalink }}"><i class="icon-location-arrow"></i> Read More</a></p>
+    </div>    
 </div>
+<!--End Blog Post-->        
+
+<hr class="margin-bottom-40">

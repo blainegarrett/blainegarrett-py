@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->  
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->  
+<head>
+    <title>{% block meta_title %}Merkabah | Welcome{% endblock %}</title>
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block meta_description %}{% endblock %}">
+    <meta name="author" content="{% block meta_author %}{% endblock %}">
+
+    <!-- CSS Global Compulsory-->
+    <link rel="stylesheet" href="/static/themes/v2/assets/plugins/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/themes/v2/assets/css/style.css">
+    <link rel="stylesheet" href="/static/themes/v2/assets/css/headers/header1.css">
+    <link rel="stylesheet" href="/static/themes/v2/assets/css/responsive.css">
+    <link rel="shortcut icon" href="/static/themes/v2/assets/favicon.ico">   
+     
+    <!-- CSS Implementing Plugins -->    
+    <link rel="stylesheet" href="/static/themes/v2/assets/plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="/static/themes/v2/assets/plugins/flexslider/flexslider.css">    	
+    <link rel="stylesheet" href="/static/themes/v2/assets/plugins/parallax-slider/css/parallax-slider.css">
+
+	{% block stylesheets %}{% endblock %}
+
+	
+</head>	
+
+<body ng-controller="MainCtrl">
+    {% block body_content %}
+		{% include "merkabah/defaults/body_content_block.html" %}
+    {% endblock %}
+
+	{% block head_content %}{% endblock %}
+</body>
+</html>
