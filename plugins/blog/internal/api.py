@@ -120,6 +120,11 @@ def edit_post(post, cleaned_data):
     post.is_published = cleaned_data['publish']
     post.content = cleaned_data['content']
     post.title = cleaned_data['title']
+
+    if (not post.published_date) and cleaned_data['publish']:
+        # Set the published date - note this is never unset if it is unchecked
+        post.published_date = datetime.now()
+
     post.put()
     return post
 

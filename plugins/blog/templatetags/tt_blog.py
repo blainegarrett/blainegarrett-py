@@ -132,7 +132,7 @@ def render_excerpt(post):
             tag.replaceWithChildren()
             
     stripped_html = force_unicode(soup.renderContents())
-    return force_unicode(text.truncate_html_words(stripped_html, 100))
+    return force_unicode(text.truncate_html_words(stripped_html, 50))
 
 
 @register.simple_tag
