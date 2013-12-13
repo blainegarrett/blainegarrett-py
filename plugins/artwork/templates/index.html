@@ -1,0 +1,191 @@
+<!-- CSS Page Style -->    
+<link rel="stylesheet" href="/static/themes/v2/assets/css/pages/portfolio-v1.css">
+
+<script src="http://jeffpetrich.com/blocksit/blocksit.min.js"></script>
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" type="text/css" media="screen" charset="utf-8" />
+<link rel='stylesheet' href='blocksit/demo2/style.css' media='screen' />
+
+<script>
+$(document).ready(function() {
+	//blocksit define
+	$(window).load( function() {
+		//$(".fancybox").fancybox();
+		//$("#loading").hide();
+		//$(".col-md-4").css({'display' : 'block'});
+		$('.row').BlocksIt({
+			numOfCol: 5,
+			offsetX: 8,
+			offsetY: 8
+		});
+	});
+
+	//window resize
+	var currentWidth = 1100;
+	$(window).bind('resize', function() {
+		var winWidth = $(window).width();
+		var conWidth;
+		if(winWidth < 660) {
+			conWidth = 440;
+			col = 2
+		} else if(winWidth < 880) {
+			conWidth = 660;
+			col = 3
+		} else if(winWidth < 1100) {
+			conWidth = 880;
+			col = 4;
+		} else {
+			conWidth = 1100;
+			col = 5;
+		}
+		
+		if(conWidth != currentWidth) {
+			currentWidth = conWidth;
+			$('#container').width(conWidth);
+			$('#container').BlocksIt({
+				numOfCol: col,
+				offsetX: 8,
+				offsetY: 8
+			});
+		}
+	});
+	//$(window).trigger('resize');
+	setTimeout(function(){ $(window).trigger('resize'); }, 500);
+});
+</script>
+
+<!--=== Breadcrumbs ===-->
+{% include "v2/breadcrumbs.html" %}
+<!--=== End Breadcrumbs ===-->
+
+<!--=== Content Part ===-->
+<div class="container portfolio-3-columns">   
+    <div class="row"> 
+        <div class="col-md-4 col-sm-6">
+            <div class="view view-tenth">
+                <a href="http://commondatastorage.googleapis.com/dim-media/artwork/sized/soylent-landscape.jpg" class="infoxx"><img class="img-responsive" src="http://commondatastorage.googleapis.com/dim-media/artwork/sized/soylent-landscape.jpg" alt="" /></a>
+                <div class="mask">
+                    <h2>Soylent Landscape</h2>
+                    <p>At vero eos et accusamus et iusto odio dignissimos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+                    <a href="http://commondatastorage.googleapis.com/dim-media/artwork/sized/soylent-landscape.jpg" class="info">Read More</a>
+                </div>                
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div class="view view-tenth">
+                <img class="img-responsive" src="http://commondatastorage.googleapis.com/dim-media/artwork/sized/6b4b3d5e4c00b43b18193524f1e80fd0.jpg" alt="" />
+                <div class="mask">
+                    <h2>Portfolio Item</h2>
+                    <p>At vero eos et accusamus et iusto odio dignissimos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+                    <a href="portfolio_item.html" class="info">Read More</a>
+                </div>                
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div class="view view-tenth">
+                <img class="img-responsive" src="http://commondatastorage.googleapis.com/dim-media/artwork/sized/48e8c04fd31eb62fe66ca77cec3ee0cf.jpg" alt="" />
+                <div class="mask">
+                    <h2>Portfolio Item</h2>
+                    <p>At vero eos et accusamus et iusto odio dignissimos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+                    <a href="portfolio_item.html" class="info">Read More</a>
+                </div>                
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div class="view view-tenth">
+                <img class="img-responsive" src="assets/img/main/7.jpg" alt="" />
+                <div class="mask">
+                    <h2>Portfolio Item</h2>
+                    <p>At vero eos et accusamus et iusto odio dignissimos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+                    <a href="portfolio_item.html" class="info">Read More</a>
+                </div>                
+            </div>
+        </div>
+    </div><!--/row-->
+
+    <div class="row"> 
+        <div class="col-md-3 col-sm-6">
+            <div class="view view-tenth">
+                <img class="img-responsive" src="assets/img/main/3.jpg" alt="" />
+                <div class="mask">
+                    <h2>Portfolio Item</h2>
+                    <p>At vero eos et accusamus et iusto odio dignissimos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+                    <a href="portfolio_item.html" class="info">Read More</a>
+                </div>                
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="view view-tenth">
+                <img class="img-responsive" src="assets/img/main/4.jpg" alt="" />
+                <div class="mask">
+                    <h2>Portfolio Item</h2>
+                    <p>At vero eos et accusamus et iusto odio dignissimos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+                    <a href="portfolio_item.html" class="info">Read More</a>
+                </div>                
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="view view-tenth">
+                <img class="img-responsive" src="assets/img/main/6.jpg" alt="" />
+                <div class="mask">
+                    <h2>Portfolio Item</h2>
+                    <p>At vero eos et accusamus et iusto odio dignissimos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+                    <a href="portfolio_item.html" class="info">Read More</a>
+                </div>                
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="view view-tenth">
+                <img class="img-responsive" src="assets/img/main/8.jpg" alt="" />
+                <div class="mask">
+                    <h2>Portfolio Item</h2>
+                    <p>At vero eos et accusamus et iusto odio dignissimos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+                    <a href="portfolio_item.html" class="info">Read More</a>
+                </div>                
+            </div>
+        </div>        
+    </div><!--/row-->
+
+    <div class="row"> 
+        <div class="col-md-3 col-sm-6">
+            <div class="view view-tenth">
+                <img class="img-responsive" src="assets/img/main/9.jpg" alt="" />
+                <div class="mask">
+                    <h2>Portfolio Item</h2>
+                    <p>At vero eos et accusamus et iusto odio dignissimos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+                    <a href="portfolio_item.html" class="info">Read More</a>
+                </div>                
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="view view-tenth">
+                <img class="img-responsive" src="assets/img/main/10.jpg" alt="" />
+                <div class="mask">
+                    <h2>Portfolio Item</h2>
+                    <p>At vero eos et accusamus et iusto odio dignissimos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+                    <a href="portfolio_item.html" class="info">Read More</a>
+                </div>                
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="view view-tenth">
+                <img class="img-responsive" src="assets/img/main/1.jpg" alt="" />
+                <div class="mask">
+                    <h2>Portfolio Item</h2>
+                    <p>At vero eos et accusamus et iusto odio dignissimos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+                    <a href="portfolio_item.html" class="info">Read More</a>
+                </div>                
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="view view-tenth">
+                <img class="img-responsive" src="assets/img/main/2.jpg" alt="" />
+                <div class="mask">
+                    <h2>Portfolio Item</h2>
+                    <p>At vero eos et accusamus et iusto odio dignissimos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+                    <a href="portfolio_item.html" class="info">Read More</a>
+                </div>                
+            </div>
+        </div>        
+    </div><!--/row-->
+</div><!--/container-->
+<!--=== End Content Part ===-->

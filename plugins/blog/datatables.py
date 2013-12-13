@@ -10,8 +10,12 @@ class BlogPostActionColumn(merkabah_datatable.DatatableColumn):
         link = obj.get_permalink()
         output += '<a href="%s" class="button">View</a>' % link
 
+        link = '/madmin/plugin/blog/edit/?post_key=%s' % obj.key.urlsafe()
+        output += '<a href="%s" class="button action">Edit</a>' % link
+
         link = '/madmin/plugin/blog/delete/?post_key=%s' % obj.key.urlsafe()
         output += '<a href="%s" class="button action">Delete</a>' % link
+
 
         return output
 

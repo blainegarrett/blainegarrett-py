@@ -14,10 +14,17 @@ class BaseCtrl(MerkabahDjangoController):
     Base controller for all of BlaineGarrett.com
     """
     chrome_template = 'v2/base.html'
+    active_menu_tab = 'home'
 
     @property
     def content_breadcrumbs(self):
         return [('/', 'Home'), (reverse(self.view_name, args=[]), self.content_title)]
+
+    def process_request(self, request, context, *args, **kwargs):
+        result = super(BaseCtrl, self).process_request(request, context, *args, **kwargs)
+        if not result:
+            context['active_menu_tab'] = self.active_menu_tab
+        return result
 
 
 class MainCtrl(BaseCtrl):
@@ -28,10 +35,14 @@ class MainCtrl(BaseCtrl):
     view_name = 'main'
     template = 'v2/main.html'
     content_title = 'Welcome'
-    
+    active_menu_tab = 'home'
+
     def process_request(self, request, context, *args, **kwargs):
         from plugins.blog.internal.api import get_published_posts
-        context['posts'] = get_published_posts(page_number=1)[0][:4]
+        result = super(MainCtrl, self).process_request(request, context, *args, **kwargs)
+        if not result:
+            context['posts'] = get_published_posts(page_number=1)[0][:4]
+        return result
 
 
 class AboutCtrl(BaseCtrl):
@@ -42,6 +53,7 @@ class AboutCtrl(BaseCtrl):
     view_name = 'about'
     template = 'v2/about.html'
     content_title = 'About'
+    active_menu_tab = 'about'
 
 
 class ContactCtrl(BaseCtrl):
@@ -72,7 +84,23 @@ class ProjectsCtrl(BaseCtrl):
     view_name = 'projects_index'
     template = 'v2/projects/index.html'
     content_title = 'Projects'
+    active_menu_tab = 'projects'
 
+
+class ProjectsCategoryCtrl(BaseCtrl):
+    """
+    Projects Page - mapped to /projects
+    """
+
+    view_name = 'projects_category'
+    template = 'v2/projects/category.html'
+    content_title = 'View Projects'
+    active_menu_tab = 'projects'
+
+    @property
+    def content_breadcrumbs(self):
+        return [('/', 'Home'), ('/projects/', 'Projects'), ('/', 'FIXME')]
+    
 
 class LinksCtrl(BaseCtrl):
     """

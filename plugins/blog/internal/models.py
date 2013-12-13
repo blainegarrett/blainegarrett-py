@@ -68,7 +68,10 @@ class BlogPost(ndb.Model):
 
     def get_permalink(self):
         dt = self.published_date
-        return '/%02d/%02d/%02d/%s' % (dt.year, dt.month, dt.day, self.slug)
+        if dt:
+            return '/%02d/%02d/%02d/%s' % (dt.year, dt.month, dt.day, self.slug)
+        else:
+            return '#'
 
 #kind_name_map = { 'post' : BlogPost, 'category' : BlogCategory }
 

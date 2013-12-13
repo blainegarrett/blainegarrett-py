@@ -35,7 +35,7 @@ MIDDLEWARE_CLASSES = (
 ###############################
 # Installed Plugins
 ###############################
-INSTALLED_PLUGINS = ('blog')
+INSTALLED_PLUGINS = ('artwork', 'blog')
 PLUGIN_PATH = 'plugins'
 
 ###############################

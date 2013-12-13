@@ -16,14 +16,15 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-responsive-collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="/">Home</a></li>
-				<li><a href="/about/">About</a></li>
-				<li><a href="/blog/">Blog</a></li>
-				<!-- 
-				<li><a href="/artwork/">Artwork</a></li>																				
-				<li><a href="/programming/">Programming</a></li>
-				<li><a href="/projects/">Projects</a></li>					
+         
+			<ul class="nav navbar-nav navbar-right">
+                <li{% ifequal active_menu_tab 'home' %} class="active"{% endifequal %}><a href="/">Home</a></li>
+				<li{% ifequal active_menu_tab 'about' %} class="active"{% endifequal %}><a href="/about/">About</a></li>
+				<li{% ifequal active_menu_tab 'blog' %} class="active"{% endifequal %}><a href="/blog/">Blog</a></li>
+				<li{% ifequal active_menu_tab 'artwork' %} class="active"{% endifequal %}><a href="/artwork/">Art</a></li>
+				<li{% ifequal active_menu_tab 'programming' %} class="active"{% endifequal %}><a href="/programming/">Programming</a></li>
+				<li{% ifequal active_menu_tab 'projects' %} class="active"{% endifequal %}><a href="/projects/">Projects</a></li>					
+				<!--
 				<li><a href="/links/">Links</a></li>
 				<li><a href="/clients">Clients</a></li>
 				<li><a href="/contact/">Contact</a></li>
