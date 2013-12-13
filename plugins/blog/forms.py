@@ -2,6 +2,10 @@ from merkabah.core import forms as merkabah_forms
 from django import forms
 from plugins.blog.internal import models as blog_models
 
+class ImageUploadForm(merkabah_forms.MerkabahBaseForm):
+    title = forms.CharField(max_length=50)
+    the_file  = forms.FileField()
+
 
 class BlogPostForm(merkabah_forms.MerkabahBaseForm):
     slug = forms.CharField(label='Slug', max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder': 'Slug'}))

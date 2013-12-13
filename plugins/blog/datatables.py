@@ -10,6 +10,9 @@ class BlogPostActionColumn(merkabah_datatable.DatatableColumn):
         link = obj.get_permalink()
         output += '<a href="%s" class="button">View</a>' % link
 
+        link = '/madmin/plugin/blog/edit/?post_key=%s' % obj.key.urlsafe()
+        output += '<a href="%s" class="button action">Edit</a>' % link
+        
         link = '/madmin/plugin/blog/delete/?post_key=%s' % obj.key.urlsafe()
         output += '<a href="%s" class="button action">Delete</a>' % link
 
@@ -23,9 +26,12 @@ class BlogCategoryActionColumn(merkabah_datatable.DatatableColumn):
 
 class BlogGroupActions(object):
     def render_content(self):
-        #link = '/madmin/plugin/blog/delete_image/?media_key=%s' % obj.key.urlsafe()
         link = '/madmin/plugin/blog/create/'
-        return '<a href="%s" class="action btn-primary btn">Create</a>' % link
+        output =  '<a href="%s" class="action btn-primary btn">Create</a>' % link
+
+        link = '/madmin/plugin/blog/images/'
+        output +=  '<a href="%s" class="btn-primary btn">Images</a>' % link
+        return output
     
 class BlogImageActionColumn(merkabah_datatable.DatatableColumn):
     def render_content(self, obj):

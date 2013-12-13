@@ -116,6 +116,14 @@ def create_post(cleaned_data):
     post.put()
     return post
 
+def edit_post(post, cleaned_data):
+    post.is_published = cleaned_data['publish']
+    post.content = cleaned_data['content']
+    post.title = cleaned_data['title']
+    post.put()
+    return post
+
+
 '''
 def get_published_posts(page_number=1, limit=POSTS_PER_PAGE):
     """
