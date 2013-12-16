@@ -1,0 +1,3 @@
+"""
+Merkabah Artwork Plugin
+"""

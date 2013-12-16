@@ -1,0 +1,16 @@
+<!--=== Breadcrumbs ===-->
+<div class="breadcrumbs margin-bottom-40">
+    <div class="container">
+        <h1 class="pull-left">{{ content_title }}</h1>
+        <ul class="pull-right breadcrumb">
+			{% for url,title in meta_breadcrumbs %}
+				{% if forloop.last %}
+					<li class="active">{{ title }}</li>
+				{% else %}
+            		<li><a href="{{ url }}">{{ title }}</a></li>
+				{% endif %}
+			{% endfor %}
+        </ul>
+    </div>
+</div><!--/breadcrumbs-->
+<!--=== End Breadcrumbs ===-->

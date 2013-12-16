@@ -1,0 +1,115 @@
+{% load tt_blog %}
+
+<style>
+	.da-slider {
+		background-image: url('/static/drips1.jpg');
+	}
+</style>
+
+<!--=== Slider ===-->
+<div class="slider-inner">
+    <div id="da-slider" class="da-slider">
+	
+		
+        <div class="da-slide" onClick="javascript:window.location='http://www.dimmedia.com/gallery/series/birthmarks-green/'">
+           	<h2><i>Newest Dim Paintings</i> <br /> <i>Birthmarks Series III</i><br /><i>New Abstract Art</i></h2>
+           	<p><i>Check out Dim Media's latest </i><br /> <i>collaborative abstract paintings. <a href="http://www.dimmedia.com/gallery/series/birthmarks-green/"> Read More &raquo;</a></i></p>
+           	<div class="da-img"><img src="/static/slider-birthmarks.png" alt="" /></div>
+        </div>
+
+        <div class="da-slide" onClick="javascript:window.location='http://www.dimmedia.com/2012/senor-wongs-central-corridor-mural/'">
+           	<h2><i>A Tranquil Place</i> <br /> <i>Señor Wong</i><br /><i>Green Line Mural</i></h2>
+           	<p><i>Check out Dim Media's mural </i><br /> <i>on the new St. Paul lightrail line <a href="http://www.dimmedia.com/2012/senor-wongs-central-corridor-mural/">Read More &raquo;</a></i></p>
+           	<div class="da-img"><img src="/static/slider-mural.png" alt="" /></div>
+        </div>
+
+        <div class="da-arrows">
+            <span class="da-arrows-prev"></span>
+            <span class="da-arrows-next"></span>		
+        </div>
+    </div><!--/da-slider-->
+</div><!--/slider-->
+<!--=== End Slider ===-->
+
+
+
+
+<!--=== Purchase Block ===-->
+<!-- 
+<div class="purchase">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <span>Unify is a clean and fully responsive incredible Template.</span>
+                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi  vehicula sem ut volutpat. Ut non libero magna fusce condimentum eleifend enim a feugiat.</p>
+            </div>            
+            <div class="col-md-3">
+                <a href="#" class="btn-buy hover-effect">Purchase Now</a>            
+            </div>
+        </div>
+    </div>
+-->
+</div><!--/row-->
+<!-- End Purchase Block -->
+
+<!--=== Content Part ===-->
+<div class="container">	
+	<!-- Service Blocks -->
+	<div class="row">
+    	<div class="col-md-4">
+    		<div class="service">
+                <i class="icon-picture service-icon"></i>
+    			<div class="desc">
+    				<h4>Art</h4>
+					<p>I'm a Minneapolis artist that works in drawing and painting. I currently work collaboratively with <a href="http://www.dimmedia.com" target="_new">Dim Media</a> and have created everything from comics to murals to fine art pieces. 
+                    View <a href="/artwork/">my portfolio</a> or checkout some of my <a href="/blog/art/">art related articles</a>.</p>
+				</div>
+    		</div>	
+    	</div>
+    	<div class="col-md-4">
+    		<div class="service">
+                <i class="icon-code service-icon"></i>
+    			<div class="desc">
+    				<h4>Programming</h4>
+                    <p>Developing websites for 17 years, I have a few languages and a ton of experience under my belt. I'm currently doing a lot of Google Appengine development. Take a look at some of my <a href="/projects/software/">software projects</a> or read my <a href="/blog/programming/">programming articles</a>.</p>
+    			</div>
+    		</div>	
+    	</div>
+    	<div class="col-md-4">
+    		<div class="service">
+                <i class="icon-puzzle-piece service-icon"></i>
+    			<div class="desc">
+    				<h4>Ideas</h4>
+                    <p>My brain is usually "swirling a mile a minute". Sometimes it results in an exciting new projects around the house and other times it results in a funny article. I try to document both. Checkout my <a href="/projects/">latest projects</a> or <a href="/blog/">view my blog</a>.</p>
+    			</div>
+    		</div>	
+    	</div>			    
+	</div><!--/row-->
+	<!-- End Service Blokcs -->
+
+	<!-- Recent Works -->
+    <div class="headline"><h2>Featured from the Blog</h2></div>
+    <div class="row">
+		{% for post in posts %}
+        	<div class="col-md-3 col-sm-6">
+	            <div class="thumbnails thumbnail-style thumbnail-kenburn">
+	            	<div class="thumbnail-img">
+	                    <div class="overflow-hidden" style="height:160px">
+							{% if post.primary_media_image %}
+					        	<a href="{{ post.get_permalink }}"><img class="img-responsive" src="http://commondatastorage.googleapis.com/blaine-garrett/{{ post.get_primary_media_image.gcs_filename  }}" alt=""></a>
+							{% endif %}
+	                    </div>
+	                    <a class="btn-more hover-effect" href="{{ post.get_permalink }}">read more +</a>					
+	                </div>
+	                <div class="caption">
+	                    <h3><a class="hover-effect" href="{{ post.get_permalink }}">{{ post.title }}</a></h3>
+	                    <p>{% render_excerpt post %}</p>
+	                </div>
+	            </div>
+	        </div>
+		{% endfor %}
+    </div><!--/row-->
+	<!-- End Recent Works -->
+</div><!--/container-->		
+<!-- End Content Part -->
+

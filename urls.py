@@ -7,7 +7,7 @@ from merkabah.urls import urlpatterns
 
 import controllers as c
 from plugins.blog.controllers import public as bc
-
+from plugins.artwork.controllers import public as ac
 
 urlpatterns += patterns('controllers',
     url(r'^$', c.MainCtrl.as_django_view(), name=c.MainCtrl.view_name),
@@ -16,10 +16,16 @@ urlpatterns += patterns('controllers',
     url(r'^about/$', c.AboutCtrl.as_django_view(), name=c.AboutCtrl.view_name),
     url(r'^blog/$', bc.BlogCtrl.as_django_view(), name=bc.BlogCtrl.view_name),
     url(r'^blog/(?P<page_number>[0-9]+)/$', bc.BlogCtrl.as_django_view(), name=bc.BlogCtrl.view_name),
-        
+
+    url(r'^artwork/$', ac.ArtworkIndexCtrl.as_django_view(), name=ac.ArtworkIndexCtrl.view_name),
+
+
+
     #url(r'^artwork/$', c.ArtworkCtrl.as_django_view(), name=c.ArtworkCtrl.view_name),
     #url(r'^software/$', c.SoftwareCtrl.as_django_view(), name=c.SoftwareCtrl.view_name),
-    #url(r'^projects/$', c.ProjectsCtrl.as_django_view(), name=c.ProjectsCtrl.view_name),
+    url(r'^projects/$', c.ProjectsCtrl.as_django_view(), name=c.ProjectsCtrl.view_name),
+    url(r'^projects/(?P<category_slug>[\w-]+)/$', c.ProjectsCategoryCtrl.as_django_view(), name=c.ProjectsCategoryCtrl.view_name),
+
     url(r'^links/$', c.LinksCtrl.as_django_view(), name=c.LinksCtrl.view_name),
     url(r'^clients/$', c.ClientsCtrl.as_django_view(), name=c.ClientsCtrl.view_name),
     url(r'^contact/$', c.ContactCtrl.as_django_view(), name=c.ContactCtrl.view_name),

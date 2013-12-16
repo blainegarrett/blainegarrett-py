@@ -1,5 +1,5 @@
 application: blaine-garrett
-version: v20131011b
+version: v20131216
 runtime: python27
 api_version: 1
 threadsafe: no
@@ -49,8 +49,8 @@ handlers:
   upload: static/robots\.txt
 
 - url: /favicon\.ico
-  static_files: favicon.ico
-  upload: favicon\.ico
+  static_files: static/themes/v2/assets/favicon.ico
+  upload: static/themes/v2/assets/favicon\.ico
 
 - url: .*
   script: main.py

@@ -5,6 +5,7 @@ TODO: Most of these can be converted to pages at a later date
 
 from __future__ import with_statement
 from merkabah.core.controllers import MerkabahDjangoController
+from django.core.urlresolvers import reverse
 import logging
 
 
@@ -12,7 +13,18 @@ class BaseCtrl(MerkabahDjangoController):
     """
     Base controller for all of BlaineGarrett.com
     """
-    pass
+    chrome_template = 'v2/base.html'
+    active_menu_tab = 'home'
+
+    @property
+    def content_breadcrumbs(self):
+        return [('/', 'Home'), (reverse(self.view_name, args=[]), self.content_title)]
+
+    def process_request(self, request, context, *args, **kwargs):
+        result = super(BaseCtrl, self).process_request(request, context, *args, **kwargs)
+        if not result:
+            context['active_menu_tab'] = self.active_menu_tab
+        return result
 
 
 class MainCtrl(BaseCtrl):
@@ -21,8 +33,17 @@ class MainCtrl(BaseCtrl):
     """
 
     view_name = 'main'
-    template = 'main.html'
+    template = 'v2/main.html'
     content_title = 'Welcome'
+    active_menu_tab = 'home'
+
+    def process_request(self, request, context, *args, **kwargs):
+        from plugins.blog.internal.api import get_published_posts
+        result = super(MainCtrl, self).process_request(request, context, *args, **kwargs)
+
+        if not result:
+            context['posts'] = get_published_posts(page_number=1)[0][:4]
+        return result
 
 
 class AboutCtrl(BaseCtrl):
@@ -31,8 +52,9 @@ class AboutCtrl(BaseCtrl):
     """
 
     view_name = 'about'
-    template = 'about.html'
+    template = 'v2/about.html'
     content_title = 'About'
+    active_menu_tab = 'about'
 
 
 class ContactCtrl(BaseCtrl):
@@ -41,7 +63,7 @@ class ContactCtrl(BaseCtrl):
     """
 
     view_name = 'contact'
-    template = 'contact.html'
+    template = 'v2/contact.html'
     content_title = 'Contact'
 
 
@@ -51,7 +73,7 @@ class SoftwareCtrl(BaseCtrl):
     """
 
     view_name = 'software_index'
-    template = 'software/index.html'
+    template = 'v2/software/index.html'
     content_title = 'Software'
 
 
@@ -61,8 +83,24 @@ class ProjectsCtrl(BaseCtrl):
     """
 
     view_name = 'projects_index'
-    template = 'projects/index.html'
+    template = 'v2/projects/index.html'
     content_title = 'Projects'
+    active_menu_tab = 'projects'
+
+
+class ProjectsCategoryCtrl(BaseCtrl):
+    """
+    Projects Page - mapped to /projects
+    """
+
+    view_name = 'projects_category'
+    template = 'v2/projects/category.html'
+    content_title = 'View Projects'
+    active_menu_tab = 'projects'
+
+    @property
+    def content_breadcrumbs(self):
+        return [('/', 'Home'), ('/projects/', 'Projects'), ('/', 'FIXME')]
 
 
 class LinksCtrl(BaseCtrl):
@@ -71,7 +109,7 @@ class LinksCtrl(BaseCtrl):
     """
 
     view_name = 'links'
-    template = 'links.html'
+    template = 'v2/links.html'
     content_title = 'Links'
 
 
@@ -79,9 +117,17 @@ class ClientsCtrl(BaseCtrl):
     """
     Display list of clients - maps to /clients
     """
+    '''
+    @property
+    def content_breadcrumbs(self):
+
+        crumbs = super(ClientsCtrl, self).content_breadcrumbs
+        crumbs.append(('genus', 'Welco'))
+        return crumbs
+    '''
 
     view_name = 'clients'
-    template = 'clients.html'
+    template = 'v2/clients.html'
     content_title = 'Clients'
 
 
@@ -152,14 +198,14 @@ class UploadCtrlEndpoint(BaseCtrl):
             fs.write(new_filename, file_content, f.content_type)
             logging.error(f.__dict__)
             logging.debug(f.gs_object_name)
-            
+
             b = BlogMedia()
             b.content_type = f.content_type
             b.size = f.size
             b.gcs_filename = new_filename
             logging.debug(file_content)
             b.put()
-        
+
 
 #UploadCtrlEndpoint
 
