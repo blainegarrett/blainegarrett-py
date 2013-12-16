@@ -40,6 +40,7 @@ class MainCtrl(BaseCtrl):
     def process_request(self, request, context, *args, **kwargs):
         from plugins.blog.internal.api import get_published_posts
         result = super(MainCtrl, self).process_request(request, context, *args, **kwargs)
+
         if not result:
             context['posts'] = get_published_posts(page_number=1)[0][:4]
         return result
@@ -100,7 +101,7 @@ class ProjectsCategoryCtrl(BaseCtrl):
     @property
     def content_breadcrumbs(self):
         return [('/', 'Home'), ('/projects/', 'Projects'), ('/', 'FIXME')]
-    
+
 
 class LinksCtrl(BaseCtrl):
     """
@@ -119,7 +120,7 @@ class ClientsCtrl(BaseCtrl):
     '''
     @property
     def content_breadcrumbs(self):
-        
+
         crumbs = super(ClientsCtrl, self).content_breadcrumbs
         crumbs.append(('genus', 'Welco'))
         return crumbs
@@ -127,7 +128,7 @@ class ClientsCtrl(BaseCtrl):
 
     view_name = 'clients'
     template = 'v2/clients.html'
-    content_title = 'Clients'     
+    content_title = 'Clients'
 
 
 class UploadCtrl(BaseCtrl):
@@ -197,14 +198,14 @@ class UploadCtrlEndpoint(BaseCtrl):
             fs.write(new_filename, file_content, f.content_type)
             logging.error(f.__dict__)
             logging.debug(f.gs_object_name)
-            
+
             b = BlogMedia()
             b.content_type = f.content_type
             b.size = f.size
             b.gcs_filename = new_filename
             logging.debug(file_content)
             b.put()
-        
+
 
 #UploadCtrlEndpoint
 

@@ -1,3 +1,6 @@
 [submodule "merkabah"]
 	path = merkabah
 url=git@github.com:blainegarrett/merkabah.git
+[submodule "plugins/blog"]
+	path = plugins/blog
+	url = git@github.com:blainegarrett/merkabah-blog.git
