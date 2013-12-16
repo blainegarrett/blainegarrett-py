@@ -1,3 +1,4 @@
+{% load tt_blog %}
 {% include "v2/breadcrumbs.html" %}
 
 <!--=== Content Part ===-->
@@ -12,26 +13,24 @@
 			{% block secondary_content %}
 
 			    <div class="magazine-sb-social margin-bottom-30">
-			        <div class="headline headline-md"><h2>Social Icons</h2></div>
+			        <div class="headline headline-md"><h2>Elsewhere</h2></div>
 			        <ul class="social-icons social-icons-color">
-			            <li><a class="social_rss" data-original-title="Feed" href="#"></a></li>
-			            <li><a class="social_facebook" data-original-title="Facebook" href="#"></a></li>
-			            <li><a class="social_twitter" data-original-title="Twitter" href="#"></a></li>
-			            <li><a class="social_vimeo" data-original-title="Vimeo" href="#"></a></li>
-			            <li><a class="social_googleplus" data-original-title="Goole Plus" href="#"></a></li>
-			            <li><a class="social_pintrest" data-original-title="Pinterest" href="#"></a></li>
-			            <li><a class="social_linkedin" data-original-title="Linkedin" href="#"></a></li>
-			            <li><a class="social_dropbox" data-original-title="Dropbox" href="#"></a></li>
-			            <li><a class="social_picasa" data-original-title="Picasa" href="#"></a></li>
-			            <li><a class="social_spotify" data-original-title="Spotify" href="#"></a></li>
-			            <li><a class="social_jolicloud" data-original-title="Jolicloud" href="#"></a></li>
-			            <li><a class="social_wordpress" data-original-title="Wordpress" href="#"></a></li>
-			            <li><a class="social_github" data-original-title="Github" href="#"></a></li>
-			            <li><a class="social_xing" data-original-title="Xing" href="#"></a></li>
+			            <!-- <li><a class="social_rss" data-original-title="Feed" href="#"></a></li> -->
+			            <li><a class="social_facebook" data-original-title="Facebook" href="https://www.facebook.com/blainegarrett"></a></li>
+			            <li><a class="social_twitter" data-original-title="Twitter" href="https://twitter.com/blainegarrett"></a></li>
+			            <li><a class="social_googleplus" data-original-title="Goole Plus" href="https://plus.google.com/u/0/109438460339487239529"></a></li>
+			            <li><a class="social_pintrest" data-original-title="Pinterest" href="http://www.pinterest.com/blainegarrett/"></a></li>
+			            <li><a class="social_linkedin" data-original-title="Linkedin" href="http://www.linkedin.com/in/blainegarrett"></a></li>
+			            <li><a class="social_github" data-original-title="Github" href="https://github.com/blainegarrett"></a></li>
 			        </ul>
 			        <div class="clearfix"></div>                
 			    </div>
 			    <!-- End Social Icons -->
+
+
+				{% newest_blog_posts %}
+
+				{% comment %}
 
 			    <!-- Posts -->
 			    <div class="posts margin-bottom-40">
@@ -132,6 +131,9 @@
 			        </div>
 			    </div>
 			    <!-- End Blog Latest Tweets -->
+			
+				{% endcomment %}
+			
 			</div>
 			{% endblock secondary_content %}
         </div><!--/col-md-3-->

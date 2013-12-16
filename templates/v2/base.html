@@ -15,6 +15,11 @@
 
 		.header, .top { background-color : #000; }
 
+		/* Overrides for old blog styles */
+		.alignleft { float:left; margin-right:20px; }
+		.alignright { float:right; margin-left:20px; }
+
+
 	</style>
 {% endblock %}
 
@@ -161,4 +166,17 @@
 	SyntaxHighlighter.config.clipboardSwf = '/static/sytaxhighlighter/scripts/clipboard.swf';
 	SyntaxHighlighter.all();
 </script>
+
+<!-- Start Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-8476520-2', 'blainegarrett.com');
+  ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
 {% endblock body_content %}

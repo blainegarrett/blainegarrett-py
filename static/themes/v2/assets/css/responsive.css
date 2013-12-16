@@ -76,10 +76,11 @@
 		width:60% !important;
 		margin-right:50px;
 	}
-
 	/*Slider Parallax*/
-	.da-slide .da-img {
-		display:none;
+	.da-slide .da-img img {
+		/* display:none; */
+        width: 100%;
+        margin-left: 117px;
 	}
 }
 
