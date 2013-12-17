@@ -1,0 +1,24 @@
+{% load tt_blog %}
+
+<div class="row blog blog-medium margin-bottom-40">
+    <div class="col-md-5">
+		{% if post.primary_media_image %}
+        	<img class="img-responsive" src="http://commondatastorage.googleapis.com/blaine-garrett/{{ post.get_primary_media_image.gcs_filename  }}" alt="">
+		{% endif %}
+    </div>    
+    <div class="col-md-7">
+        <h2><a href="{{ post.get_permalink }}">{{ post.title }}</a></h2>
+        <ul class="list-unstyled list-inline blog-info">
+            <li><i class="icon-calendar"></i> Published {{ post.published_date|date:"F d, Y" }} <!-- November 02, 2013 --></li>
+
+            <!-- <li><i class="icon-comments"></i> <a href="#">24 Comments</a></li>
+			-->
+			<li><i class="icon-tags"></i> Posted in Blog</li>
+        </ul>
+        <p>{% render_excerpt post %}</p>
+        <p><a class="btn-u btn-u-small" href="{{ post.get_permalink }}"><i class="icon-location-arrow"></i> Read More</a></p>
+    </div>    
+</div>
+<!--End Blog Post-->        
+
+<hr class="margin-bottom-40">

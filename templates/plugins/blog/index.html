@@ -1,0 +1,28 @@
+{% extends "v2/layouts/two_col.html" %}
+
+{% block primary_content %}
+
+	<!-- CSS Page Style -->    
+	<link rel="stylesheet" href="/static/themes/v2/assets/css/pages/blog.css">
+	<link rel="stylesheet" href="/static/themes/v2/assets/css/pages/page_magazine.css">
+
+	{% for post in posts %}
+		{% include 'plugins/blog/list_post.html' %}
+	{% empty %}
+		<b>No posts</b>
+	{% endfor %}
+	
+	
+
+	<ul class="pager">
+	  	{% if cur_page > 1 %}
+			<li class="previous"><a href="/blog/{{ cur_page|add:"-1"}}/">&larr; Newer</a></li>
+		{% endif %}
+
+	  	{% if more %}					
+	  		<li class="next"><a href="/blog/{{ cur_page|add:"1" }}">Older &rarr;</a></li>
+		{% endif %}
+	</ul>
+
+
+{% endblock primary_content %}

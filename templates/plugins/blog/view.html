@@ -1,0 +1,72 @@
+{% extends "v2/layouts/two_col.html" %}
+{% load tt_blog %}
+{% block primary_content %}
+	<!-- CSS Page Style -->    
+	<link rel="stylesheet" href="/static/themes/v2/assets/css/pages/blog.css">
+	<link rel="stylesheet" href="/static/themes/v2/assets/css/pages/page_magazine.css">
+
+<div class="blog margin-bottom-40">
+
+	<h2><a href="{{ post.get_permalink }}">{{ post.title }}</a></h2>
+	
+	<div class="blog-post-tags">
+		<ul class="list-unstyled list-inline blog-info">
+			<li><i class="icon-calendar"></i> {{ post.published_date|date:"F d, Y" }}</li>
+			<li><i class="icon-pencil"></i> Blaine Garrett</li>
+			<!-- <li><i class="icon-comments"></i> <a href="#">24 Comments</a></li> -->
+		</ul>
+
+		<!-- <ul class="list-unstyled list-inline blog-tags">
+		<li>
+		<i class="icon-tags"></i> 
+		<a href="#">Technology</a> 
+		<a href="#">Education</a>
+		<a href="#">Internet</a>
+		<a href="#">Media</a>
+		</li>
+		</ul>
+		-->
+	</div>
+
+	<!-- 
+	<div class="blog-img">
+		<img class="img-responsive" src="assets/img/posts/2.jpg" alt="">
+	</div>
+	-->
+
+	<!-- start of blog post content -->
+	{% render_content post.content %}
+	<!-- end of blog post content -->
+
+	<hr>
+</div>
+
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'blainegarrett'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<!--End Blog Post-->        
+
+
+
+
+
+
+
+
+{% endblock primary_content %}
