@@ -17,6 +17,8 @@ urlpatterns += patterns('controllers',
     url(r'^blog/$', bc.BlogCtrl.as_django_view(), name=bc.BlogCtrl.view_name),
     url(r'^blog/(?P<page_number>[0-9]+)/$', bc.BlogCtrl.as_django_view(), name=bc.BlogCtrl.view_name),
 
+    url(r'^feed/atom/$', bc.AtomCtrl.as_django_view(), name=bc.AtomCtrl.view_name),
+
     url(r'^artwork/$', ac.ArtworkIndexCtrl.as_django_view(), name=ac.ArtworkIndexCtrl.view_name),
 
 

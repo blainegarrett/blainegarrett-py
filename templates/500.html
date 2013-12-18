@@ -1,37 +1,8 @@
-{% extends "base.html" %}
+{% extends "v2/base.html" %}
 {% block body_content %}
-	
-	{% include "menu.html" %}
-	
-	<!-- header-padding : this div adds padding to push content below fixed menu -->
-	<div class="header-padding hidden-phone hidden-tablet">&nbsp;</div>
-	
-	<!-- start wrapper -->
-	<div ng-view id="body_content">
 
-
-
-
-
-		<div class="container-fluid text-background content-main">
-			<div class="padding-wrapper">
-
-				<div class="row-fluid">
-					<div class="span12 page-header">
-						<h1>500 Server Error</h1>
-						<p class="subtitle">Sorry about that. We've run into a bug. We've logged it and will fix it. In the meantime, return to the <a href="/">homepage</a></p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-
-
-
-
-	</div>
-	<!-- end wrapper -->
-
-	{% include "footer.html" %}
+	{% with '<link rel="stylesheet" href="/static/themes/v2/assets/css/pages/page_404_error.css"><div class="container"><div class="row"><div class="col-md-8 col-md-offset-2"><div class="error-v1"><span class="error-v1-title">500</span><span>That’s an error!</span><p>Something went horrible wrong. You can click the back button on your browser and try again or <a href="/"> return to the homepage</a></p></div></div></div></div>' as body_content %}
+		{{ block.super }}
+	{% endwith %}
 {% endblock %}
+

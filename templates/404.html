@@ -1,37 +1,8 @@
-{% extends "base.html" %}
+{% extends "v2/base.html" %}
 {% block body_content %}
-	
-	{% include "menu.html" %}
-	
-	<!-- header-padding : this div adds padding to push content below fixed menu -->
-	<div class="header-padding hidden-phone hidden-tablet">&nbsp;</div>
-	
-	<!-- start wrapper -->
-	<div ng-view id="body_content">
 
-
-
-
-
-		<div class="container-fluid text-background content-main">
-			<div class="padding-wrapper">
-
-				<div class="row-fluid">
-					<div class="span12 page-header">
-						<h1>404 - Not Found</h1>
-						<p class="subtitle">The page you were looking for could not be found. We're working on somethings and updating urls. In the meantime, return to the <a href="/">homepage</a></p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-
-
-
-
-	</div>
-	<!-- end wrapper -->
-
-	{% include "footer.html" %}
+	{% with '<link rel="stylesheet" href="/static/themes/v2/assets/css/pages/page_404_error.css"><div class="container"><div class="row"><div class="col-md-8 col-md-offset-2"><div class="error-v1"><span class="error-v1-title">404</span><span>That’s an error!</span><p>The requested URL was not found on this server. <a href="/">Please return to the homepage</a></p></div></div></div></div>' as body_content %}
+		{{ block.super }}
+	{% endwith %}
 {% endblock %}
+
