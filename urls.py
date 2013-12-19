@@ -18,6 +18,11 @@ urlpatterns += patterns('controllers',
     url(r'^blog/(?P<page_number>[0-9]+)/$', bc.BlogCtrl.as_django_view(), name=bc.BlogCtrl.view_name),
 
     url(r'^feed/atom/$', bc.AtomCtrl.as_django_view(), name=bc.AtomCtrl.view_name),
+    url(r'^feed/atom/(?P<page_number>[0-9]+)/$', bc.AtomCtrl.as_django_view(), name=bc.AtomCtrl.view_name),
+
+    url(r'^feed/rss/$', bc.RssCtrl.as_django_view(), name=bc.RssCtrl.view_name),
+    url(r'^feed/rss/(?P<page_number>[0-9]+)/$', bc.RssCtrl.as_django_view(), name=bc.RssCtrl.view_name),
+
 
     url(r'^artwork/$', ac.ArtworkIndexCtrl.as_django_view(), name=ac.ArtworkIndexCtrl.view_name),
 
