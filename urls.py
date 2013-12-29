@@ -23,10 +23,7 @@ urlpatterns += patterns('controllers',
     url(r'^feed/rss/$', bc.RssCtrl.as_django_view(), name=bc.RssCtrl.view_name),
     url(r'^feed/rss/(?P<page_number>[0-9]+)/$', bc.RssCtrl.as_django_view(), name=bc.RssCtrl.view_name),
 
-
     url(r'^artwork/$', ac.ArtworkIndexCtrl.as_django_view(), name=ac.ArtworkIndexCtrl.view_name),
-
-
 
     #url(r'^artwork/$', c.ArtworkCtrl.as_django_view(), name=c.ArtworkCtrl.view_name),
     #url(r'^software/$', c.SoftwareCtrl.as_django_view(), name=c.SoftwareCtrl.view_name),
@@ -37,7 +34,5 @@ urlpatterns += patterns('controllers',
     url(r'^clients/$', c.ClientsCtrl.as_django_view(), name=c.ClientsCtrl.view_name),
     url(r'^contact/$', c.ContactCtrl.as_django_view(), name=c.ContactCtrl.view_name),
 
-    url(r'^upload/$', c.UploadCtrl.as_django_view(), name=c.UploadCtrl.view_name),
-    url(r'^upload_endpoint/$', c.UploadCtrlEndpoint.as_django_view(), name=c.UploadCtrlEndpoint.view_name),
     url(r'^(?P<category_slug>[\w-]+)/$', bc.BlogCategoryCtrl.as_django_view(), name=bc.BlogCategoryCtrl.view_name),
 )
