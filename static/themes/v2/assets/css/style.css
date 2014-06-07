@@ -123,6 +123,9 @@
 .service .service-icon.icon-plane {
 	font-size: 43px;
 }
+.service a {
+    color: #72c02c;
+}
 
 /* Recent Work  */
 .recent-work a {
