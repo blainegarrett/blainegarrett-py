@@ -35,4 +35,5 @@ urlpatterns += patterns('controllers',
     url(r'^contact/$', c.ContactCtrl.as_django_view(), name=c.ContactCtrl.view_name),
 
     url(r'^(?P<category_slug>[\w-]+)/$', bc.BlogCategoryCtrl.as_django_view(), name=bc.BlogCategoryCtrl.view_name),
+    url(r'^(?P<category_slug>[\w-]+)/(?P<page_number>[0-9]+)/$', bc.BlogCategoryCtrl.as_django_view(), name=bc.BlogCategoryCtrl.view_name),
 )
