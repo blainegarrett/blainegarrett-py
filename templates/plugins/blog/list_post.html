@@ -13,7 +13,7 @@
 
             <!-- <li><i class="icon-comments"></i> <a href="#">24 Comments</a></li>
 			-->
-			<li><i class="icon-tags"></i> Posted in Blog</li>
+			<li><i class="icon-tags"></i> Posted in {% list_categories post %}</li>
         </ul>
         <p>{% render_excerpt post %}</p>
         <p><a class="btn-u btn-u-small" href="{{ post.get_permalink }}"><i class="icon-location-arrow"></i> Read More</a></p>

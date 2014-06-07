@@ -13,10 +13,12 @@
 		<ul class="list-unstyled list-inline blog-info">
 			<li><i class="icon-calendar"></i> {{ post.published_date|date:"F d, Y" }}</li>
 			<li><i class="icon-pencil"></i> Blaine Garrett</li>
+			<li><i class="icon-tags"></i> Posted in {% list_categories post %}</li>
 			<!-- <li><i class="icon-comments"></i> <a href="#">24 Comments</a></li> -->
 		</ul>
 
-		<!-- <ul class="list-unstyled list-inline blog-tags">
+		<!-- 
+		<ul class="list-unstyled list-inline blog-tags">
 		<li>
 		<i class="icon-tags"></i> 
 		<a href="#">Technology</a> 

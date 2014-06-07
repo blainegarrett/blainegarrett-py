@@ -11,17 +11,16 @@
 	{% empty %}
 		<b>No posts</b>
 	{% endfor %}
-	
-	
 
 	<ul class="pager">
-	  	{% if cur_page > 1 %}
-			<li class="previous"><a href="/blog/{{ cur_page|add:"-1"}}/">&larr; Newer</a></li>
+	  	{% if prev_url %}
+			<li class="previous"><a href="{{ prev_url }}">&larr; Newer</a></li>
 		{% endif %}
 
-	  	{% if more %}					
-	  		<li class="next"><a href="/blog/{{ cur_page|add:"1" }}">Older &rarr;</a></li>
+	  	{% if more_url %}					
+	  		<li class="next"><a href="{{ more_url }}">Older &rarr;</a></li>
 		{% endif %}
+
 	</ul>
 
 
