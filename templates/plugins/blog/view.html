@@ -14,6 +14,11 @@
 			<li><i class="icon-calendar"></i> {{ post.published_date|date:"F d, Y" }}</li>
 			<li><i class="icon-pencil"></i> Blaine Garrett</li>
 			<li><i class="icon-tags"></i> Posted in {% list_categories post %}</li>
+			
+			{% if user.is_authenticated %}
+				<li><i class="icon-pencil"></i> <a href="/madmin/plugin/blog/edit/?post_key={{ post.key.urlsafe }}" target="_new">edit</a></li>
+				<li><i class="icon-remove"></i> <a href="/madmin/plugin/blog/delete/?post_key={{ post.key.urlsafe }}" target="_new">delete</a></li>
+			{% endif %}
 			<!-- <li><i class="icon-comments"></i> <a href="#">24 Comments</a></li> -->
 		</ul>
 
@@ -44,8 +49,6 @@
 </div>
 
 
-
-
 <div id="disqus_thread"></div>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
@@ -63,12 +66,6 @@
 
 
 <!--End Blog Post-->        
-
-
-
-
-
-
 
 
 {% endblock primary_content %}
