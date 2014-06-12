@@ -97,9 +97,32 @@ class ProjectsCategoryCtrl(BaseCtrl):
     content_title = 'View Projects'
     active_menu_tab = 'projects'
 
+    def process_request(self, request, context, *args, **kwargs):
+        result = super(ProjectsCategoryCtrl, self).process_request(request, context, *args, **kwargs)
+
+        if not result:
+            category_slug = kwargs.get('category_slug', None)
+            if category_slug == 'software':
+                self.template = 'v2/projects/software.html'
+                self.content_title = 'Software Projects'
+                self.active_menu_tab = 'programming'
+
+        return result
+
+    
     @property
     def content_breadcrumbs(self):
         return [('/', 'Home'), ('/projects/', 'Projects'), ('/', 'FIXME')]
+
+
+class ArchivesCtrl(BaseCtrl):
+    """
+    Archives Directory
+    """
+
+    view_name = 'archives'
+    template = 'v2/archives.html'
+    content_title = 'Archives'
 
 
 class LinksCtrl(BaseCtrl):

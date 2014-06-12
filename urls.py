@@ -14,6 +14,9 @@ urlpatterns += patterns('controllers',
     url(r'^(?P<permalink>\d{4}/\d{2}/\d{2}/[\w-]+/)$', bc.BlogPermalinkCtrl.as_django_view(), name=bc.BlogPermalinkCtrl.view_name),
 
     url(r'^about/$', c.AboutCtrl.as_django_view(), name=c.AboutCtrl.view_name),
+
+    url(r'^archives/$', c.ArchivesCtrl.as_django_view(), name=c.ArchivesCtrl.view_name),
+
     url(r'^blog/$', bc.BlogCtrl.as_django_view(), name=bc.BlogCtrl.view_name),
     url(r'^blog/(?P<page_number>[0-9]+)/$', bc.BlogCtrl.as_django_view(), name=bc.BlogCtrl.view_name),
 
