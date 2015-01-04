@@ -133,6 +133,7 @@ class LinksCtrl(BaseCtrl):
     view_name = 'links'
     template = 'v2/links.html'
     content_title = 'Links'
+    active_menu_tab = 'links'
 
 
 class ClientsCtrl(BaseCtrl):

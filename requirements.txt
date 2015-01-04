@@ -1,0 +1,4 @@
+# Any packages here will be deployed along to the appspot
+# Packages in requirements_dev.txt will be installed locally only
+
+unicode-slugify==0.1.1

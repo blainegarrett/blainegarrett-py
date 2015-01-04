@@ -9,6 +9,7 @@ import django.dispatch.dispatcher
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'external')) # pip installed libs
 sys.path.append(os.path.join(os.path.dirname(__file__), 'merkabah/lib'))
 
 # Google App Engine imports.
