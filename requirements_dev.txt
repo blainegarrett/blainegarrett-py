@@ -2,6 +2,3 @@
 
 PyCrypto==2.6
 Pillow==2.3.0
-git+https://github.com/ze-phyr-us/linkenv.git
-
--r requirements.txt

@@ -2,3 +2,4 @@
 # Packages in requirements_dev.txt will be installed locally only
 
 unicode-slugify==0.1.1
+django==1.2

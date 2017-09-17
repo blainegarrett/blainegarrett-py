@@ -1,17 +1,15 @@
 application: blaine-garrett
-version: v20150105-stable
+version: x
 runtime: python27
 api_version: 1
 threadsafe: no
 
 libraries:
-- name: django
-  version: "1.2"
 - name: PIL
   version: "1.1.7"
 - name: pycrypto
   version: latest
-    
+
 skip_files: |
    ^(.*/)?(
    (app\.yaml)|

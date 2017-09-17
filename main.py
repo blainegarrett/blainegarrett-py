@@ -2,6 +2,9 @@ import os
 import sys
 import logging
 
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'external')) # pip installed libs
+sys.path.append(os.path.join(os.path.dirname(__file__), 'merkabah/lib'))
+
 import django.core.handlers.wsgi
 import django.core.signals
 import django.db
@@ -9,8 +12,6 @@ import django.dispatch.dispatcher
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'external')) # pip installed libs
-sys.path.append(os.path.join(os.path.dirname(__file__), 'merkabah/lib'))
 
 # Google App Engine imports.
 from google.appengine.ext.webapp import util
