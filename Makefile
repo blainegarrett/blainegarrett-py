@@ -12,7 +12,10 @@ clean:
 	find . -name '*~' -exec rm -f {} +
 
 run:
-	dev_appserver.py . --storage_path=./data/.search --datastore_path=./data/.datastore --enable_sendmail --port=8080
+	dev_appserver.py .  --enable_console --storage_path=./data/.search --datastore_path=./data/.datastore --enable_sendmail --port=8080
+
+#deploy:
+#	appcfg.py update -A blaine-garrett -V $(filter-out $@,$(MAKECMDGOALS)) ./app.yaml
 
 deploy:
-	appcfg.py update -A blaine-garrett -V $(filter-out $@,$(MAKECMDGOALS)) ./app.yaml
+	gcloud --verbosity=debug --project blaine-garrett app deploy ./app.yaml --no-promote --version $(filter-out $@,$(MAKECMDGOALS))
